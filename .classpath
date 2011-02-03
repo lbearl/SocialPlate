@@ -9,5 +9,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="signpost-core-1.2.1.1.jar"/>
+	<classpathentry kind="lib" path="twitter4j-core-2.1.11.jar"/>
+	<classpathentry kind="lib" path="twitter4j-examples-2.1.11.jar"/>
+	<classpathentry kind="lib" path="twitter4j-media-support-2.1.11.jar"/>
+	<classpathentry kind="lib" path="signpost-commonshttp4-1.2.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

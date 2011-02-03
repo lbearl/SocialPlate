@@ -42,7 +42,10 @@ public class CredentialDbService {
 	/**
 	 * This provides a constructor for the Credential's Database
 	 * @param context: the context of the application
+	 * Marked to deprecated as shared preferences make more sense, but I wrote the code so I'll keep
+	 * it in case someone else has use for some database stuff.
 	 */
+	@Deprecated
 	public CredentialDbService(Context context){
 		this.ctx = context;
 		OpenHelper openHelper = new OpenHelper(this.ctx);
