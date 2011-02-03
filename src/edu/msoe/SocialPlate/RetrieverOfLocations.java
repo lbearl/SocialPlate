@@ -30,4 +30,15 @@ public class RetrieverOfLocations implements LocationListener{
 		
 	}
 
+
+	public static RetrieverOfLocations getInstance() {
+		return null;
+	}
+
+
+	public void register() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
