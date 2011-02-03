@@ -18,7 +18,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
-public class CredentialDB {
+public class CredentialDbService {
 	
 	private static final String DATABASE_NAME = "cred.db";
 	
@@ -43,7 +43,7 @@ public class CredentialDB {
 	 * This provides a constructor for the Credential's Database
 	 * @param context: the context of the application
 	 */
-	public CredentialDB(Context context){
+	public CredentialDbService(Context context){
 		this.ctx = context;
 		OpenHelper openHelper = new OpenHelper(this.ctx);
 		

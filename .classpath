@@ -3,6 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="D:/workspace/TwitterTester/signpost-core-1.2.1.1.jar"/>
+	<classpathentry kind="lib" path="joda-time-1.6.2.jar" sourcepath="joda-time-1.6.2-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SocialPlate/joda-time-1.6.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="signpost-core-1.2.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
