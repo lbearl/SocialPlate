@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  	
+  	<item android:id="@+id/priceImNotPaying"
+  			android:title="I'm Not Paying" />  	
+  	<item android:id="@+id/priceExpensive"
+  			android:title="Expensive"/>
+  	<item android:id="@+id/priceCheap"
+  			android:title="Cheap" />
+  	<item android:id="@+id/priceFree"
+  			android:title="Free" />				
+  
+</menu>

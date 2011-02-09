@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+	<TextView
+		android:id="@+id/rlabel"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Restuarant Name"
+	/>  
+  
+ 	<EditText
+	  	android:id="@+id/restuarant_name"
+	  	android:layout_below="@id/rlabel"
+	  	android:layout_width="fill_parent"
+	  	android:layout_height="wrap_content"
+	  	android:text=""> 
+	    
+ 	</EditText>
+  
+	<TextView
+		android:id="@+id/latlabel"
+		android:layout_below="@id/restuarant_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Latitude:"
+	/>  
+	
+	<TextView
+		android:id="@+id/latnum"		
+		android:layout_below="@id/restuarant_name"
+		android:layout_toRightOf="@id/latlabel"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text=""
+	/>  
+  
+  	<TextView
+		android:id="@+id/lnglabel"
+		android:layout_below="@id/latlabel"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Longitude:"
+	/>
+  
+  	<TextView
+		android:id="@+id/lngnum"
+		android:layout_below="@id/latlabel"
+		android:layout_toRightOf="@id/lnglabel"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text=""
+	/>
+  
+  	<TextView
+		android:id="@+id/dlabel"
+		android:layout_below="@id/lnglabel"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Restuarant Description"
+	/>
+  
+   	<EditText
+	  	android:id="@+id/dbox"
+	  	android:layout_below="@id/dlabel"
+	  	android:layout_width="fill_parent"
+	  	android:layout_height="wrap_content"
+	  	android:text=""> 	    
+ 	</EditText>
+
+ 	<Button android:id="@+id/priceButton"
+			android:layout_below="@id/dbox"
+			android:layout_height="wrap_content"
+			android:text="@string/price_range"		
+			android:layout_width="fill_parent"/>
+
+	 <Button android:id="@+id/typeButton"
+ 			android:layout_below="@id/priceButton"
+			android:layout_height="wrap_content"
+			android:text="@string/food_type"			 
+			android:layout_width="fill_parent"/>
+
+  
+ 	<Button android:id="@+id/tagButton"
+ 			 android:layout_below="@id/typeButton"
+			android:layout_height="wrap_content"
+			android:text="Tag This Location!"
+			android:onClick="onClick" 
+			android:layout_width="fill_parent"/>	 
+  
+</RelativeLayout>
