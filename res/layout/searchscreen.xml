@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+  
+  	 <EditText
+		  	android:id="@+id/searchName"	  	
+		  	android:layout_width="fill_parent"
+		  	android:layout_height="wrap_content"
+		  	android:text="" />   
+  
+   	<Button android:id="@+id/searchPrice"
+			android:layout_below="@id/searchName"
+			android:layout_height="wrap_content"
+			android:text="@string/price_range"		
+			android:layout_width="fill_parent"/>
+
+	 <Button android:id="@+id/searchType"
+ 			android:layout_below="@id/searchPrice"
+			android:layout_height="wrap_content"
+			android:text="@string/food_type"			 
+			android:layout_width="fill_parent"/>
+  
+	 <Button android:id="@+id/searchSubmit"
+			android:layout_below="@id/searchType"
+			android:layout_height="wrap_content"
+			android:text="Submit"	
+			android:onClick="onClick"		 
+			android:layout_width="fill_parent"/>  	  
+  
+</RelativeLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  
+  	<item android:id="@+id/typeChinese"
+  		android:title="Chinese" />
+  		
+  	<item android:id="@+id/typeBurger"
+  		android:title="Burger" />	
+	
+	<item android:id="@+id/typeChicken"
+  		android:title="Chicken" />  
+
+	<item android:id="@+id/typeIceCream"
+  		android:title="Ice Cream" />
+  		
+  	<item android:id="@+id/typeBuffet"
+  		android:title="Buffet" />
+  		
+  	<item android:id="@+id/typeMexican"
+  		android:title="Mexican" />
+  		
+  	<item android:id="@+id/typeItalian"
+  		android:title="Italian" />
+  		
+  	<item android:id="@+id/typeTip"
+  		android:title="Leave a tip for the cute waitress" />
+  						  
+</menu>
