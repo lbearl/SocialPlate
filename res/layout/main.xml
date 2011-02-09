@@ -1,12 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
-</LinearLayout>
+
+<ImageButton 
+		android:id="@+id/mapbutton"
+		android:layout_width="100px"
+		android:layout_height="100px"
+ 		android:background="@android:color/transparent"
+		android:layout_marginTop="15dip"
+ 		android:layout_marginLeft="40dip"
+ 		android:layout_marginRight="180dip"
+  		/>
+
+<ImageButton 
+		android:id="@+id/ethnicitybutton"
+		android:layout_width="100px"
+		android:layout_height="100px"
+ 		android:background="@android:color/transparent"
+		android:layout_marginTop="15dip"
+ 		android:layout_marginRight="40dip"
+ 		android:layout_marginLeft="180dip"
+  		/>
+  		
+<ImageButton 
+		android:id="@+id/costbutton"
+		android:layout_width="100px"
+		android:layout_height="100px"
+ 		android:background="@android:color/transparent"
+		android:layout_marginTop="125dip"
+ 		android:layout_marginLeft="40dip"
+ 		android:layout_marginRight="180dip"
+  		/>
+  		
+<ImageButton 
+		android:id="@+id/mealbutton"
+		android:layout_width="100px"
+		android:layout_height="100px"
+ 		android:background="@android:color/transparent"
+		android:layout_marginTop="125dip"
+ 		android:layout_marginRight="40dip"
+ 		android:layout_marginLeft="180dip"
+  		/>
+ 
+<ImageButton 
+		android:id="@+id/geotagbutton"
+		android:layout_width="100px"
+		android:layout_height="100px"
+ 		android:background="@android:color/transparent"
+		android:layout_marginTop="180dip"
+ 		android:layout_marginLeft="40dip"
+ 		android:layout_marginRight="180dip"
+  		/>
+  		
+<ImageButton 
+		android:id="@+id/clearallbutton"
+		android:layout_width="100px"
+		android:layout_height="100px"
+ 		android:background="@android:color/transparent"
+		android:layout_marginTop="180dip"
+ 		android:layout_marginRight="40dip"
+ 		android:layout_marginLeft="180dip"
+  		/>
+  		 		
+<ImageButton 
+		android:id="@+id/searchbutton"
+		android:layout_width="300px"
+		android:layout_height="50px"
+		
+		android:layout_marginTop="380dip"
+ 		android:layout_centerHorizontal="true"
+ 		/>
+ 		
+<ImageButton 
+		android:id="@+id/platebutton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@android:color/transparent"
+		android:scaleType="fitXY"
+ 		android:layout_marginTop="260dip"
+ 		android:layout_centerHorizontal="true"
+ 		/>
+</RelativeLayout>
