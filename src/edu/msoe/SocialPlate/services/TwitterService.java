@@ -8,6 +8,10 @@ import org.joda.time.DateTime;
 import oauth.signpost.OAuthProvider;
 import oauth.signpost.basic.DefaultOAuthProvider;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.exception.OAuthNotAuthorizedException;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -129,9 +133,9 @@ public class TwitterService {
 	public void doTwitterAuthentication(Context ctx){
 	    
 		try {
-			provider = new DefaultOAuthProvider("http://twitter.com/oauth/request_token",
-												"http://twitter.com/oauth/access_token",
-												"http://twitter.com/oauth/authorize");
+			provider = new DefaultOAuthProvider("https://api.twitter.com/oauth/request_token",
+												"https://api.twitter.com/oauth/access_token",
+												"https://api.twitter.com/oauth/authorize");
 			String authUrl = provider.retrieveRequestToken(consumer, CALLBACK_URL);
 			Toast.makeText(ctx, "Please authorize this app!", Toast.LENGTH_LONG).show();
 			ctx.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(authUrl)));
@@ -175,6 +179,10 @@ public class TwitterService {
 			}
 
 		}
+	}
+	
+	public String getCallbackURL() throws OAuthMessageSignerException, OAuthNotAuthorizedException, OAuthExpectationFailedException, OAuthCommunicationException{
+		return provider.retrieveRequestToken(consumer, CALLBACK_URL);
 	}
 	
 
