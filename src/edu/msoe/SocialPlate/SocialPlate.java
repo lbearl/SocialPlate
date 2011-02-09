@@ -1,5 +1,6 @@
 package edu.msoe.SocialPlate;
 
+import edu.msoe.SocialPlate.database.DBAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,6 +20,8 @@ public class SocialPlate extends Activity implements OnClickListener {
 	ImageButton ETHNICITY;
 	ImageButton COST;
 	ImageButton MEAL;
+	ImageButton GEOTAG;
+	ImageButton CLEARALL;
 	ImageButton SEARCH;
 	ImageButton PLATE;
 	
@@ -26,8 +29,10 @@ public class SocialPlate extends Activity implements OnClickListener {
 	final int ETHNICITY_ID = 2;
 	final int COST_ID = 3;
 	final int MEAL_ID = 4;
-	final int SEARCH_ID = 5;
-	final int PLATE_ID = 6;
+	final int GEOTAG_ID = 5;
+	final int CLEARALL_ID = 6;
+	final int SEARCH_ID = 7;
+	final int PLATE_ID = 8;
 	
 	final String[] ETHNICITY_LIST = {"American","Brazilian","Chinese","Colombian","Ethiopian"};
 	final String[] COST_LIST = {"$","$$","$$$"};
@@ -43,36 +48,50 @@ public class SocialPlate extends Activity implements OnClickListener {
         MAP = (ImageButton) findViewById(R.id.mapbutton);
         MAP.setImageResource(R.drawable.map);
         MAP.setAdjustViewBounds(true);
-        MAP.setMaxHeight(84);
-        MAP.setMaxWidth(84);
+        MAP.setMaxHeight(80);
+        MAP.setMaxWidth(80);
         MAP.setOnClickListener(this);
         
         ETHNICITY = (ImageButton) findViewById(R.id.ethnicitybutton);
         ETHNICITY.setImageResource(R.drawable.earth);
         ETHNICITY.setAdjustViewBounds(true);
-        ETHNICITY.setMaxHeight(84);
-        ETHNICITY.setMaxWidth(84);
+        ETHNICITY.setMaxHeight(80);
+        ETHNICITY.setMaxWidth(80);
         ETHNICITY.setOnClickListener(this);
         
         COST = (ImageButton) findViewById(R.id.costbutton);
         COST.setImageResource(R.drawable.cost);
         COST.setAdjustViewBounds(true);
-        COST.setMaxHeight(84);
-        COST.setMaxWidth(84);
+        COST.setMaxHeight(80);
+        COST.setMaxWidth(80);
         COST.setOnClickListener(this);
         
         MEAL = (ImageButton) findViewById(R.id.mealbutton);
         MEAL.setImageResource(R.drawable.meal);
         MEAL.setAdjustViewBounds(true);
-        MEAL.setMaxHeight(84);
-        MEAL.setMaxWidth(84);
+        MEAL.setMaxHeight(80);
+        MEAL.setMaxWidth(80);
         MEAL.setOnClickListener(this);
+        
+        GEOTAG = (ImageButton) findViewById(R.id.geotagbutton);
+        GEOTAG.setImageResource(R.drawable.geotag);
+        GEOTAG.setAdjustViewBounds(true);
+        GEOTAG.setMaxHeight(80);
+        GEOTAG.setMaxWidth(80);
+        GEOTAG.setOnClickListener(this);
+        
+        CLEARALL = (ImageButton) findViewById(R.id.clearallbutton);
+        CLEARALL.setImageResource(R.drawable.eraser);
+        CLEARALL.setAdjustViewBounds(true);
+        CLEARALL.setMaxHeight(80);
+        CLEARALL.setMaxWidth(80);
+        CLEARALL.setOnClickListener(this);
         
         SEARCH = (ImageButton) findViewById(R.id.searchbutton);
         SEARCH.setImageResource(R.drawable.search);
         SEARCH.setAdjustViewBounds(true);
-        SEARCH.setMaxHeight(84);
-        SEARCH.setMaxWidth(84);
+        SEARCH.setMaxHeight(80);
+        SEARCH.setMaxWidth(80);
         SEARCH.setOnClickListener(this);
         
         PLATE = (ImageButton) findViewById(R.id.platebutton);
@@ -141,6 +160,8 @@ public class SocialPlate extends Activity implements OnClickListener {
     	}
     	else if(view == PLATE){
     		Toast.makeText(this, "Choosing your restaurant...", Toast.LENGTH_SHORT).show();
+    		DBAdapter dba = new DBAdapter(getApplicationContext());
+    		
     	}
     	else if(view == SEARCH){
     		Toast.makeText(this, "Search started", Toast.LENGTH_SHORT).show();

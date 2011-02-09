@@ -7,60 +7,60 @@
 
 <ImageButton 
 		android:id="@+id/mapbutton"
-		android:layout_width="100px"
-		android:layout_height="100px"
+		android:layout_width="80px"
+		android:layout_height="80px"
  		android:background="@android:color/transparent"
-		android:layout_marginTop="15dip"
+		android:layout_marginTop="10dip"
  		android:layout_marginLeft="40dip"
  		android:layout_marginRight="180dip"
   		/>
 
 <ImageButton 
 		android:id="@+id/ethnicitybutton"
-		android:layout_width="100px"
-		android:layout_height="100px"
+		android:layout_width="80px"
+		android:layout_height="80px"
  		android:background="@android:color/transparent"
-		android:layout_marginTop="15dip"
+		android:layout_marginTop="10dip"
  		android:layout_marginRight="40dip"
  		android:layout_marginLeft="180dip"
   		/>
   		
 <ImageButton 
 		android:id="@+id/costbutton"
-		android:layout_width="100px"
-		android:layout_height="100px"
+		android:layout_width="80px"
+		android:layout_height="80px"
  		android:background="@android:color/transparent"
-		android:layout_marginTop="125dip"
+		android:layout_marginTop="100dip"
  		android:layout_marginLeft="40dip"
  		android:layout_marginRight="180dip"
   		/>
   		
 <ImageButton 
 		android:id="@+id/mealbutton"
-		android:layout_width="100px"
-		android:layout_height="100px"
+		android:layout_width="80px"
+		android:layout_height="80px"
  		android:background="@android:color/transparent"
-		android:layout_marginTop="125dip"
+		android:layout_marginTop="100dip"
  		android:layout_marginRight="40dip"
  		android:layout_marginLeft="180dip"
   		/>
  
 <ImageButton 
 		android:id="@+id/geotagbutton"
-		android:layout_width="100px"
-		android:layout_height="100px"
+		android:layout_width="80px"
+		android:layout_height="80px"
  		android:background="@android:color/transparent"
-		android:layout_marginTop="180dip"
+		android:layout_marginTop="190dip"
  		android:layout_marginLeft="40dip"
  		android:layout_marginRight="180dip"
   		/>
   		
 <ImageButton 
 		android:id="@+id/clearallbutton"
-		android:layout_width="100px"
-		android:layout_height="100px"
+		android:layout_width="80px"
+		android:layout_height="80px"
  		android:background="@android:color/transparent"
-		android:layout_marginTop="180dip"
+		android:layout_marginTop="190dip"
  		android:layout_marginRight="40dip"
  		android:layout_marginLeft="180dip"
   		/>
@@ -80,7 +80,7 @@
 		android:layout_height="wrap_content"
 		android:background="@android:color/transparent"
 		android:scaleType="fitXY"
- 		android:layout_marginTop="260dip"
+ 		android:layout_marginTop="270dip"
  		android:layout_centerHorizontal="true"
  		/>
 </RelativeLayout>
