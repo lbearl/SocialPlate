@@ -4,7 +4,7 @@
     <string name="app_name">SocialPlate</string>
     <string name="package_structure">edu.msoe.SocialPlate</string>
     <string name="location_service_fqn">edu.msoe.SocialPlate.services.RetrieveLocationService</string>
-    <string name="home_screen_fqn">edu.msoe.SocialPlate.activities.HomeScreen</string>
+    <string name="home_screen_fqn">edu.msoe.SocialPlate.SocialPlate</string>
     <string name="geo_tag_screen_fqn">edu.msoe.SocialPlate.activities.GeoTag</string>
     <string name="search_screen_fqn">edu.msoe.SocialPlate.activities.SearchScreen</string>
     <string name="result_screen_fqn">edu.msoe.SocialPlate.activities.ResultScreen</string>

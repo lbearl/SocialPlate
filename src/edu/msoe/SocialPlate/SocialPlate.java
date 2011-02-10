@@ -1,6 +1,9 @@
 package edu.msoe.SocialPlate;
 
+import java.util.ArrayList;
+
 import edu.msoe.SocialPlate.database.DBAdapter;
+import edu.msoe.SocialPlate.helperobjects.UserChoices;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -38,6 +41,7 @@ public class SocialPlate extends Activity implements OnClickListener {
 	final String[] COST_LIST = {"$","$$","$$$"};
 	final String[] MEAL_LIST = {"Breakfast","Lunch","Dinner","Late Night"};
 	final String[] DIRECTIONS_LIST = {"Walking","Driving","Bus"};
+	
 	
 	/** Called when the activity is first created. */
     @Override
@@ -115,6 +119,8 @@ public class SocialPlate extends Activity implements OnClickListener {
     		builder.setTitle("Directions?");
     		builder.setSingleChoiceItems(DIRECTIONS_LIST, -1, new DialogInterface.OnClickListener(){
     			public void onClick(DialogInterface dialog, int item){
+    				UserChoices.getInstance().setDirections(item);
+    				Toast.makeText(SocialPlate.this, DIRECTIONS_LIST[item], Toast.LENGTH_SHORT).show();
     				dialog.dismiss();
     			}
     		});
@@ -128,6 +134,12 @@ public class SocialPlate extends Activity implements OnClickListener {
     		builder.setSingleChoiceItems(ETHNICITY_LIST, -1, new DialogInterface.OnClickListener(){
     			public void onClick(DialogInterface dialog, int item){
     				setEthnicity(item);
+    				UserChoices.getInstance().setEthnicity(ETHNICITY_LIST[item]);
+    				//Check to see if above line works...
+    				String e = "" + UserChoices.getInstance().getEthnicity();
+    				Toast.makeText(SocialPlate.this, e, Toast.LENGTH_SHORT).show();
+    				// ...end check.
+    				
     				dialog.dismiss();
     			}
     		});
@@ -140,6 +152,11 @@ public class SocialPlate extends Activity implements OnClickListener {
     		builder.setSingleChoiceItems(COST_LIST, -1, new DialogInterface.OnClickListener(){
     			public void onClick(DialogInterface dialog, int item){
     				setCost(item);
+    				UserChoices.getInstance().setCost(COST_LIST[item]);
+    				//Check to see if above line works...
+    				Toast.makeText(SocialPlate.this, COST_LIST[item], Toast.LENGTH_SHORT).show();
+    				// ...end check.
+    				
     				dialog.dismiss();
     			}
     		});
@@ -152,16 +169,33 @@ public class SocialPlate extends Activity implements OnClickListener {
     		builder.setSingleChoiceItems(MEAL_LIST, -1, new DialogInterface.OnClickListener(){
     			public void onClick(DialogInterface dialog, int item){
     				setMeal(item);
+    				UserChoices.getInstance().setMeal(MEAL_LIST[item]);
+    				//Check to see if above line works...
+    				Toast.makeText(SocialPlate.this, UserChoices.getInstance().getMeal(), Toast.LENGTH_SHORT).show();
+    				// ...end check.
+    				
     				dialog.dismiss();
     			}
     		});
     		AlertDialog alert = builder.create();
     		alert.show();
     	}
-    	else if(view == PLATE){
-    		Toast.makeText(this, "Choosing your restaurant...", Toast.LENGTH_SHORT).show();
-    		DBAdapter dba = new DBAdapter(getApplicationContext());
+    	
+    	else if(view == GEOTAG){
     		
+    	}
+    	else if(view == CLEARALL){
+    		Toast.makeText(this, "Clearing all choices", Toast.LENGTH_SHORT).show();
+    		clearAll();
+    	}
+    	else if(view == PLATE){
+    		
+    		/*
+    		 * DBAdapter... <this code disappeared>
+    		 */
+    		DBAdapter dba = new DBAdapter(getApplicationContext());
+    	//	dba.queryRestaurants(new ArrayList<String>(), rPrice, rType, nName, nPrice, nType, gLat, lLat, gLng, lLng)
+    		Toast.makeText(this, "Choosing your restaurant", Toast.LENGTH_SHORT).show();
     	}
     	else if(view == SEARCH){
     		Toast.makeText(this, "Search started", Toast.LENGTH_SHORT).show();
@@ -223,7 +257,7 @@ public class SocialPlate extends Activity implements OnClickListener {
     	}
     }
     
-    public void resetAll(){
+    public void clearAll(){
     	MAP.setImageResource(R.drawable.map);
     	ETHNICITY.setImageResource(R.drawable.earth);
     	COST.setImageResource(R.drawable.cost);
