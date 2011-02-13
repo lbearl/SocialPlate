@@ -13,6 +13,7 @@ public class Restaurant implements Parcelable{
 	private String description;
 	private String priceRange;
 	private String foodType;
+	private String ethnicity;
 	
 	/**
 	 * Default Constructor
@@ -23,9 +24,10 @@ public class Restaurant implements Parcelable{
 	 * @param description
 	 * @param priceRange
 	 * @param foodType
+	 * @param ethnicity
 	 */
 	public Restaurant(long id, String name, double latitude, double longitude, String description,
-			String priceRange, String foodType){
+			String priceRange, String foodType, String ethnicity){
 		this.id = id;
 		this.name = name;
 		this.latitude = latitude;
@@ -33,6 +35,7 @@ public class Restaurant implements Parcelable{
 		this.description = description;
 		this.priceRange = priceRange;
 		this.foodType = foodType;		
+		this.ethnicity = ethnicity;
 	}
 
 	/**
@@ -91,6 +94,13 @@ public class Restaurant implements Parcelable{
 	public double getDistance() {
 		return distance;
 	}
+	
+	/**
+	 * @return the ethnicity
+	 */
+	public String getEthnicity(){
+		return ethnicity;
+	}
 
 	/**
 	 * @param distance the distance to set
@@ -100,7 +110,7 @@ public class Restaurant implements Parcelable{
 	}
 
 	public String toString(){
-		return name + " " + latitude + " " + longitude + " " + description + " " + priceRange + " " + foodType;
+		return name + " " + latitude + " " + longitude + " " + description + " " + priceRange + " " + foodType + " " + ethnicity;
 	}
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
@@ -130,6 +140,7 @@ public class Restaurant implements Parcelable{
 		dest.writeString(description);
 		dest.writeString(priceRange);
 		dest.writeString(foodType);
+		dest.writeString(ethnicity);
 	}
 	
 	private void readFromParcel(Parcel in) {
@@ -141,6 +152,7 @@ public class Restaurant implements Parcelable{
 		description = in.readString();
 		priceRange = in.readString();
 		foodType = in.readString();	
+		ethnicity = in.readString();
 	}
 
 }

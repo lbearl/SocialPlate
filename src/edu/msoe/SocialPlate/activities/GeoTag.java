@@ -122,11 +122,15 @@ public class GeoTag extends Activity implements OnClickListener{
 		String type = ((Button)this.findViewById(R.id.typeButton)).getText().toString();
 		type = type.substring(getResources().getString(R.string.food_type).length()+1, type.length());
 		
+		
+		String ethnicity = "";
+		
 		if(!rname.getText().toString().equals("") && !latNum.getText().toString().equals("")
 			&& !lngNum.getText().toString().equals("") && !description.toString().equals("")){
 			
 			dba.insert(rname.getText().toString(), Double.parseDouble(latNum.getText().toString()), 
-					Double.parseDouble(lngNum.getText().toString()), description.getText().toString(), price, type);
+					Double.parseDouble(lngNum.getText().toString()), description.getText().toString(), price,
+					type, ethnicity);
 			dba.closeDB();
 		}
 		
