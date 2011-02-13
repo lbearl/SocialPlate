@@ -1,0 +1,47 @@
+<RelativeLayout 
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent" 
+	xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- 
+	*** This was my original picture for the HelloWorld++ requirement ***
+
+	<ImageView 
+		android:src="@drawable/hello_world"
+		android:scaleType="fitCenter"
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent"/>
+ -->
+	<TextView
+		android:text="Learn-Android.com"
+		android:textSize="24sp"
+		android:textColor="#000000"
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent"
+		android:gravity="center_vertical"/>
+<!-- 
+	<TextView 
+		android:id ="@+id/italic"
+ 		android:text="Press the button..."
+ 		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="150dip"
+		android:layout_marginLeft="50dip"
+ 		android:textStyle="italic"/>
+ 		
+ 		this is from ImageButton:
+ 		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:layout_alignParentBottom="true"
+    	android:layout_centerHorizontal="true"
+    	android:layout_marginBottom="150dip"
+
+	<ImageButton 
+		android:id="@+id/mapbutton"
+ 		android:src="@drawable/earth" 		
+  		/>
+	<ImageButton 
+		android:id="@+id/ethnicity"
+ 		android:src="@drawable/earth" 		
+  		/>
+ -->		
+</RelativeLayout>
