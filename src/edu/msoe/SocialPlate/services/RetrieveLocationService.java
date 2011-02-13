@@ -44,6 +44,9 @@ public class RetrieveLocationService extends Service{
 	}
 
 
+	public void onDestroy(){		
+		RetrieverOfLocations.getInstance(getApplicationContext()).unregister();
+	}
 	
 	
 }

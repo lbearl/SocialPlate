@@ -53,8 +53,8 @@ public class ResultScreen extends Activity{
 		
 		Restaurant[] restaurants = dba.queryRestaurants(rName, rPrice, rType, rEthnicity,
 				nName, nPrice, nType, nEthnicity,
-				DBAdapter.DISABLE_LOCATION_SEARCH, DBAdapter.DISABLE_LOCATION_SEARCH, DBAdapter.DISABLE_LOCATION_SEARCH,
-				DBAdapter.DISABLE_LOCATION_SEARCH);
+				DBAdapter.DISABLE_LOCATION_SEARCH, DBAdapter.DISABLE_LOCATION_SEARCH, DBAdapter.DISABLE_LOCATION_SEARCH
+				);
 		dba.closeDB();		
 						
 		return restaurants;

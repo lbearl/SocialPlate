@@ -3,6 +3,7 @@ package edu.msoe.SocialPlate.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.msoe.SocialPlate.helperobjects.DistanceCalculator;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 
 import android.R.id;
@@ -105,11 +106,11 @@ public class DBAdapter {
 		List<String> nType = new ArrayList<String>();
 		List<String> nEthnicity = new ArrayList<String>();
 		
-		double gLat=0, lLat=0, gLng=0, lLng=0;
+		double userLat=0, userLng=0, dist = 0;
 		
 		Restaurant[] restaurants = queryRestaurants(rName, rPrice, rType, rEthnicity,
 					nName, nPrice, nType, nEthnicity,
-					gLat, lLat, gLng, lLng); 
+					userLat, userLng, dist); 
 		
 		return restaurants;
 	}
@@ -124,17 +125,16 @@ public class DBAdapter {
 	 * @param nName
 	 * @param nPrice
 	 * @param nType
-	 * @param gLat
-	 * @param lLat
-	 * @param gLng
-	 * @param lLng
+	 * @param restLat
+	 * @param restLng
+	 * @param userLat
+	 * @param userLng
 	 * @return
 	 */
 	public Restaurant[] queryRestaurants(List<String> rName, List<String> rPrice, List<String> rType,
 			List<String> rEthnicity, List<String> nName, List<String> nPrice, List<String> nType,
-			List<String> nEthnicity,
-			double gLat, double lLat, 
-			double gLng, double lLng){
+			List<String> nEthnicity,			 
+			double userLat, double userLng, double dist){
 		
 		String query = SELECT;
 		
@@ -168,10 +168,10 @@ public class DBAdapter {
 		for(int i=0; i<nEthnicity.size(); i++)
 		{ where.append(NSELECT_ETHNICITY); if(numOfAnds > 0){where.append(" AND "); numOfAnds--;}}	
 		
-		if(gLat != DISABLE_LOCATION_SEARCH && lLat != DISABLE_LOCATION_SEARCH && gLng != DISABLE_LOCATION_SEARCH
-				&& lLng != DISABLE_LOCATION_SEARCH){			
-			where.append("longitude<="+ gLng + " AND longitude>="+ lLng+" AND latitude<="+gLat+" AND latitude >="+lLat);			
-		}
+//		if(gLat != DISABLE_LOCATION_SEARCH && lLat != DISABLE_LOCATION_SEARCH && gLng != DISABLE_LOCATION_SEARCH
+//				&& lLng != DISABLE_LOCATION_SEARCH){			
+//			where.append("longitude<="+ gLng + " AND longitude>="+ lLng+" AND latitude<="+gLat+" AND latitude >="+lLat);			
+//		}
 		
 		String[] selectionArgs = new String[rName.size()+rPrice.size()+rType.size()+rEthnicity.size()+nName.size()+nPrice.size()+nType.size()+nEthnicity.size()];
 		List<String> masterList = new ArrayList<String>();
@@ -191,22 +191,46 @@ public class DBAdapter {
 			masterList.addAll(nType);
 		}if(nEthnicity != null){
 			masterList.addAll(nEthnicity);
-		}
-		
+		}		
 		
 		masterList.toArray(selectionArgs);
 		
 		Cursor cursor = this.db.query(TABLE_NAME, 
 									new String[]{"id","restaurant_name","latitude","longitude","description","price","type","ethnicity"},
 									where.toString(),
-									selectionArgs, null, null, null);
+									selectionArgs, null, null, null);		
 		
-		Restaurant[] masterRestaurantList = new Restaurant[cursor.getCount()];		
-		for(int i = 0; cursor.moveToNext(); i++ ){			
-			masterRestaurantList[i] = new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getDouble(2),
-					cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));			
-		}	
+		Restaurant[] masterRestaurantList = new Restaurant[cursor.getCount()];
+		Restaurant tempRestaurant = null;
+		int index = 0;
+		while(cursor.moveToNext()){			
+			tempRestaurant = new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getDouble(2),
+					cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));			 
+			if(queryLocation(tempRestaurant.getLatitude(), tempRestaurant.getLongitude(), userLat, userLng, dist)){
+				masterRestaurantList[index] = tempRestaurant;
+				index++;
+			}				 
+		}				
 		return masterRestaurantList;
+	}
+	
+	/**
+	 * Determines if a restaurant is within a user specified range
+	 * @param restLat
+	 * @param restLng
+	 * @param userLat
+	 * @param userLng
+	 * @param dist, kilometers.
+	 * @return
+	 */
+	public boolean queryLocation(double restLat, double restLng, double userLat, double userLng, double dist){
+		boolean ret = false;
+		
+		if(dist==0.0 || (DistanceCalculator.calcDistance(restLat, restLng, userLat, userLng) <= dist)){
+			ret = true;
+		}	
+		
+		return ret;
 	}
 	
 	
