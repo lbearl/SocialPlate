@@ -1,0 +1,45 @@
+Adding changes to layouts and string:
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Committer: root <root@linux-you3.site>
+#
+# On branch master
+# Your branch is ahead of 'origin/master' by 4 commits.
+#
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   res/layout/geotag.xml
+#	new file:   res/layout/homescreen.xml
+#	new file:   res/layout/list_item.xml
+#	new file:   res/layout/resultscreen.xml
+#	new file:   res/layout/searchscreen.xml
+#	new file:   res/layout/splashscreen.xml
+#	new file:   res/menu/pricecontext.xml
+#	new file:   res/menu/typecontext.xml
+#
+# Changed but not updated:
+#   (use "git add/rm <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   AndroidManifest.xml
+#	modified:   res/values/strings.xml
+#	deleted:    src/edu/msoe/SocialPlate/HomeScreen.java
+#	modified:   src/edu/msoe/SocialPlate/RetrieverOfLocations.java
+#	deleted:    src/edu/msoe/SocialPlate/SearchScreen.java
+#	deleted:    src/edu/msoe/SocialPlate/SocialPlate.java
+#	modified:   src/edu/msoe/SocialPlate/activities/GeoTag.java
+#	modified:   src/edu/msoe/SocialPlate/activities/HomeScreen.java
+#	modified:   src/edu/msoe/SocialPlate/activities/SearchScreen.java
+#	modified:   src/edu/msoe/SocialPlate/activities/SplashScreen.java
+#	modified:   src/edu/msoe/SocialPlate/database/DBAdapter.java
+#	modified:   src/edu/msoe/SocialPlate/services/RetrieveLocationService.java
+#	modified:   src/edu/msoe/SocialPlate/tasks/GetLocationTask.java
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	bin/
+#	gen/
+#	res/drawable-hdpi/socialplate.jpg
