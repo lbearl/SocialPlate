@@ -33,7 +33,7 @@ public class DBAdapter {
 
 	private static final String INSERT = "INSERT INTO " +
 		TABLE_NAME +
-		" (restaurant_name, latitude, longitude, description, price, type) values (?,?,?,?,?,?);";
+		" (restaurant_name, latitude, longitude, description, price, type, ethnicity) values (?,?,?,?,?,?,?);";
 	
 	private static final String UPDATE_WHERE = "id=? ";
 	
@@ -43,10 +43,12 @@ public class DBAdapter {
 	private static final String SELECT_NAME = "restaurant_name=?";
 	private static final String SELECT_PRICE = "price=?";
 	private static final String SELECT_TYPE = "type=?";	
+	private static final String SELECT_ETHNICITY = "ethnicity=?";
 	
 	private static final String NSELECT_NAME = "restaurant_name!=?";
 	private static final String NSELECT_PRICE = "price!=?";
 	private static final String NSELECT_TYPE = "type!=?";
+	private static final String NSELECT_ETHNICITY = "ethnicity!=?";
 	
 	private static final String LESS_LATITUDE = "latitude<=?";
 	private static final String GREAT_LATITUDE = "latitude>=?";
@@ -80,15 +82,39 @@ public class DBAdapter {
 	 * @param longitude
 	 * @return
 	 */
-	public long insert(String rName, double latitude, double longitude, String description, String price, String type){		
+	public long insert(String rName, double latitude, double longitude, String description,
+			String price, String type, String ethnicity){		
 		this.insertStmt.bindString(1, rName);
 		this.insertStmt.bindDouble(2, latitude);
 		this.insertStmt.bindDouble(3, longitude);
 		this.insertStmt.bindString(4, description);
 		this.insertStmt.bindString(5, price);
 		this.insertStmt.bindString(6, type);
+		this.insertStmt.bindString(7, ethnicity);
 		return this.insertStmt.executeInsert();		
 	}
+	
+	public Restaurant[] queryRestaurant(){
+		
+		List<String> rName = new ArrayList<String>();
+		List<String> rPrice = new ArrayList<String>();
+		List<String> rType = new ArrayList<String>();
+		List<String> rEthnicity = new ArrayList<String>();
+		List<String> nName = new ArrayList<String>();
+		List<String> nPrice = new ArrayList<String>();
+		List<String> nType = new ArrayList<String>();
+		List<String> nEthnicity = new ArrayList<String>();
+		
+		double gLat=0, lLat=0, gLng=0, lLng=0;
+		
+		Restaurant[] restaurants = queryRestaurants(rName, rPrice, rType, rEthnicity,
+					nName, nPrice, nType, nEthnicity,
+					gLat, lLat, gLng, lLng); 
+		
+		return restaurants;
+	}
+	
+	
 	
 	/**
 	 * This method queries the Restaurant Table based on information specified by the user
@@ -105,7 +131,9 @@ public class DBAdapter {
 	 * @return
 	 */
 	public Restaurant[] queryRestaurants(List<String> rName, List<String> rPrice, List<String> rType,
-			List<String> nName, List<String> nPrice, List<String> nType, double gLat, double lLat, 
+			List<String> rEthnicity, List<String> nName, List<String> nPrice, List<String> nType,
+			List<String> nEthnicity,
+			double gLat, double lLat, 
 			double gLng, double lLng){
 		
 		String query = SELECT;
@@ -124,6 +152,9 @@ public class DBAdapter {
 		//build restaurant type clauses
 		for(int i=0; i<rType.size();i++)
 		{ where.append(SELECT_TYPE); if(numOfAnds > 0){where.append(" AND "); numOfAnds--;}}
+		//build ethnicity clauses
+		for(int i=0; i<rEthnicity.size(); i++)
+		{ where.append(SELECT_ETHNICITY); if(numOfAnds > 0){where.append(" AND "); numOfAnds--;}}
 		//build not restaurant name clauses
 		for(int i=0; i<nName.size();i++)
 		{ where.append(NSELECT_NAME); if(numOfAnds > 0){where.append(" AND "); numOfAnds--;}}		
@@ -133,13 +164,16 @@ public class DBAdapter {
 		//build not restaurant type clauses
 		for(int i=0; i<nType.size();i++)
 		{ where.append(NSELECT_TYPE); if(numOfAnds > 0){where.append(" AND "); numOfAnds--;}}
+		//build not ethnicity clauses
+		for(int i=0; i<nEthnicity.size(); i++)
+		{ where.append(NSELECT_ETHNICITY); if(numOfAnds > 0){where.append(" AND "); numOfAnds--;}}	
 		
 		if(gLat != DISABLE_LOCATION_SEARCH && lLat != DISABLE_LOCATION_SEARCH && gLng != DISABLE_LOCATION_SEARCH
 				&& lLng != DISABLE_LOCATION_SEARCH){			
 			where.append("longitude<="+ gLng + " AND longitude>="+ lLng+" AND latitude<="+gLat+" AND latitude >="+lLat);			
 		}
 		
-		String[] selectionArgs = new String[rName.size()+rPrice.size()+rType.size()+nName.size()+nPrice.size()+nType.size()];
+		String[] selectionArgs = new String[rName.size()+rPrice.size()+rType.size()+rEthnicity.size()+nName.size()+nPrice.size()+nType.size()+nEthnicity.size()];
 		List<String> masterList = new ArrayList<String>();
 		if(rName != null){
 			masterList.addAll(rName);
@@ -147,24 +181,30 @@ public class DBAdapter {
 			masterList.addAll(rPrice);
 		}if(rType != null){
 			masterList.addAll(rType);
+		}if(rEthnicity != null){
+			masterList.addAll(rEthnicity);
 		}if(nName != null){	
 			masterList.addAll(nName);
 		}if(nPrice != null){
 			masterList.addAll(nPrice);
 		}if(nType != null){
 			masterList.addAll(nType);
+		}if(nEthnicity != null){
+			masterList.addAll(nEthnicity);
 		}
+		
+		
 		masterList.toArray(selectionArgs);
 		
 		Cursor cursor = this.db.query(TABLE_NAME, 
-									new String[]{"id","restaurant_name","latitude","longitude","description","price","type"},
+									new String[]{"id","restaurant_name","latitude","longitude","description","price","type","ethnicity"},
 									where.toString(),
 									selectionArgs, null, null, null);
 		
 		Restaurant[] masterRestaurantList = new Restaurant[cursor.getCount()];		
 		for(int i = 0; cursor.moveToNext(); i++ ){			
 			masterRestaurantList[i] = new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getDouble(2),
-					cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));			
+					cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));			
 		}	
 		return masterRestaurantList;
 	}
@@ -193,12 +233,16 @@ public class DBAdapter {
 	 * @param longitude
 	 * @return
 	 */
-	public long update(long id, String restaurantName, double latitude, double longitude, String description){		
+	public long update(long id, String restaurantName, double latitude, double longitude, String description,
+			String price, String type, String ethnicity){		
 		ContentValues values = new ContentValues();
 		values.put("restaurant_name", restaurantName);
 		values.put("latitude", latitude);
 		values.put("longitude", longitude);
 		values.put("description", description);
+		values.put("price", price);
+		values.put("type", type);
+		values.put("ethnicity", ethnicity);
 		return this.db.update(TABLE_NAME, values, UPDATE_WHERE, new String[]{(id+"")});		
 	}
 	
@@ -227,14 +271,15 @@ public class DBAdapter {
 		ArrayList<String> list = new ArrayList<String>();
 		
 		Cursor cursor = this.db.query(TABLE_NAME, new String[]{"id", "restaurant_name	", "latitude", 
-				"longitude", "description", "price", "type"},
+				"longitude", "description", "price", "type", "ethnicity"},
 				null, null, null, null, "id desc");
 		
 		if(cursor.moveToFirst()){
 			do{
 				list.add("id" + cursor.getInt(0) + " Name " + cursor.getString(1) + " Lat " + cursor.getInt(2)
 						+ " Lng " + cursor.getInt(3) + " description " + cursor.getString(4) + 
-						" price " + cursor.getString(5) + " type " + cursor.getString(6));
+						" price " + cursor.getString(5) + " type " + cursor.getString(6) + " ethnicity "
+						+ cursor.getString(7));
 			}while(cursor.moveToNext());			
 		}
 		
@@ -245,7 +290,7 @@ public class DBAdapter {
 	}
 	
 	public void closeDB(){
-		if(db!=null){
+		if(db!=null &&  db.isOpen()){			
 			db.close();
 		}
 	}
@@ -274,7 +319,7 @@ public class DBAdapter {
 				+ TABLE_NAME
 				+ " (id INTEGER primary key autoincrement" +
 						", restaurant_name text, latitude numeric, longitude numeric, description text" +
-						", price text, type text);");
+						", price text, type text, ethnicity text);");
 			
 		}
 		

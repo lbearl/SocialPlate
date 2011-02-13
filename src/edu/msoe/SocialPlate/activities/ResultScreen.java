@@ -44,13 +44,15 @@ public class ResultScreen extends Activity{
 		ArrayList<String> rName = new ArrayList<String>();		
 		ArrayList<String> rPrice = new ArrayList<String>();
 		ArrayList<String> rType = new ArrayList<String>();
+		ArrayList<String> rEthnicity = new ArrayList<String>();
 		ArrayList<String> nName = new ArrayList<String>();
 		nName.add("BK");
 		ArrayList<String> nPrice = new ArrayList<String>();
 		ArrayList<String> nType = new ArrayList<String>();
+		ArrayList<String> nEthnicity = new ArrayList<String>();
 		
-		Restaurant[] restaurants = dba.queryRestaurants(rName, rPrice, rType,
-				nName, nPrice, nType,
+		Restaurant[] restaurants = dba.queryRestaurants(rName, rPrice, rType, rEthnicity,
+				nName, nPrice, nType, nEthnicity,
 				DBAdapter.DISABLE_LOCATION_SEARCH, DBAdapter.DISABLE_LOCATION_SEARCH, DBAdapter.DISABLE_LOCATION_SEARCH,
 				DBAdapter.DISABLE_LOCATION_SEARCH);
 		dba.closeDB();		
