@@ -2,11 +2,13 @@ package edu.msoe.SocialPlate;
 
 import java.util.ArrayList;
 
+import edu.msoe.SocialPlate.activities.ResultScreen;
 import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.UserChoices;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -193,12 +195,11 @@ public class SocialPlate extends Activity implements OnClickListener {
     	}
     	else if(view == PLATE){
     		
-    		/*
-    		 * DBAdapter... <this code disappeared>
-    		 */
     		DBAdapter dba = new DBAdapter(getApplicationContext());
-    	//	dba.queryRestaurants(new ArrayList<String>(), rPrice, rType, nName, nPrice, nType, gLat, lLat, gLng, lLng)
+    	//	dba.queryRestaurants(new ArrayList<String>(), rPrice, rType, nName, nPrice, nType, gLat, lLat, gLng, lLng);
     		Toast.makeText(this, "Choosing your restaurant", Toast.LENGTH_SHORT).show();
+    		Intent intent = new Intent(SocialPlate.this, ResultScreen.class);
+    		startActivity(intent);
     	}
     	else if(view == SEARCH){
     		Toast.makeText(this, "Search started", Toast.LENGTH_SHORT).show();
