@@ -6,6 +6,7 @@ import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.tasks.GetLocationTask;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -118,10 +119,12 @@ public class GeoTag extends Activity implements OnClickListener{
 		TextView lngNum = (TextView)this.findViewById(R.id.lngnum);
 		EditText description = (EditText)this.findViewById(R.id.dbox);
 		String price = ((Button)this.findViewById(R.id.priceButton)).getText().toString();
-		price = price.substring(getResources().getString(R.string.price_range).length()+1, price.length());
+		price = price.substring(getResources().getString(R.string.price_range).length()+2, price.length());
 		String type = ((Button)this.findViewById(R.id.typeButton)).getText().toString();
-		type = type.substring(getResources().getString(R.string.food_type).length()+1, type.length());
+		type = type.substring(getResources().getString(R.string.food_type).length()+2, type.length());
 		
+		Log.i("Checkign insert price", "P"+price+"P");
+		Log.i("Checkign insert type", "P"+type+"P");
 		
 		String ethnicity = "";
 		
