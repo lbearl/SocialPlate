@@ -16,6 +16,10 @@
         		  android:label="@string/app_name">
         </activity>
         
+        <activity android:name=".activities.ResultScreen"
+        		  android:label="Restaurant List">
+        </activity>
+        
         <activity android:name=".activities.GeoTag"
         		  android:label="GeoTag A Restuarant">
         </activity>                
