@@ -30,6 +30,10 @@ public class RetrieverOfLocations implements LocationListener{
 	 */
 	private RetrieverOfLocations(){
 		waitingForLocationChange = true;
+		latitude = 0.0;
+		longitude = 0.0;
+		bearing = 0.0;		
+		accuracy = 0.0;
 		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 	}	
 	

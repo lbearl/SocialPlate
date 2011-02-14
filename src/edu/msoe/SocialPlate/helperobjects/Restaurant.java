@@ -36,6 +36,7 @@ public class Restaurant implements Parcelable{
 		this.priceRange = priceRange;
 		this.foodType = foodType;		
 		this.ethnicity = ethnicity;
+		this.distance = -1;
 	}
 
 	/**
@@ -73,6 +74,7 @@ public class Restaurant implements Parcelable{
 	public String getDescription() {
 		return description;
 	}
+	
 
 	/**
 	 * @return the priceRange
