@@ -173,9 +173,10 @@ public class SocialPlate extends Activity implements OnClickListener {
     	
     	
     	else if(view == GEOTAG){
-    	/*
-    	 * 	DO THIS!!!!!	
-    	 */
+    		Intent intent = new Intent();
+    		intent.setClassName(getResources().getString(R.string.package_structure),
+    				getResources().getString(R.string.geo_tag_screen_fqn));
+    		startActivity(intent);
     	}
     	else if(view == CLEARALL){
     		Toast.makeText(this, "Clearing all choices", Toast.LENGTH_SHORT).show();
