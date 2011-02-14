@@ -134,6 +134,8 @@ public class GeoTag extends Activity implements OnClickListener{
 			dba.closeDB();
 		}
 		
+
+		
 		String errorMessage = "The field(s) (";
 		String errorFields = "";
 		

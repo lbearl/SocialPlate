@@ -44,6 +44,7 @@ public class SplashScreen extends Activity{
 				}finally{
 					finish();
 					Intent homeScreen = new Intent();
+					
 					homeScreen.setClassName(getResources().getString(R.string.package_structure),
 							getResources().getString(R.string.home_screen_fqn));
 					startActivity(homeScreen);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.msoe.SocialPlate.activities.ResultScreen;
 import edu.msoe.SocialPlate.database.DBAdapter;
+import edu.msoe.SocialPlate.helperobjects.Restaurant;
 import edu.msoe.SocialPlate.helperobjects.UserChoices;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -196,9 +197,17 @@ public class SocialPlate extends Activity implements OnClickListener {
     	else if(view == PLATE){
     		
     		DBAdapter dba = new DBAdapter(getApplicationContext());
-    	//	dba.queryRestaurants(new ArrayList<String>(), rPrice, rType, nName, nPrice, nType, gLat, lLat, gLng, lLng);
+    		
+    		Restaurant[] restaurant = dba.queryRestaurant();
+    		
     		Toast.makeText(this, "Choosing your restaurant", Toast.LENGTH_SHORT).show();
-    		Intent intent = new Intent(SocialPlate.this, ResultScreen.class);
+    		
+    		Intent intent = new Intent();
+    		intent.setClassName(getResources().getString(R.string.package_structure),
+    				getResources().getString(R.string.result_screen_fqn));
+    		Bundle bundle = new Bundle();
+    		bundle.putParcelableArray("Restaurants", restaurant);
+    		intent.putExtras(bundle);
     		startActivity(intent);
     	}
     	else if(view == SEARCH){
@@ -247,16 +256,16 @@ public class SocialPlate extends Activity implements OnClickListener {
     public void setMeal(int index){
     	switch(index){
     	case 0:
-    		MEAL.setImageResource(R.drawable.breakfast);
+//    		MEAL.setImageResource(R.drawable.breakfast);
     		break;
     	case 1:
-    		MEAL.setImageResource(R.drawable.lunch);
+//    		MEAL.setImageResource(R.drawable.lunch);
     		break;
     	case 2:
-    		MEAL.setImageResource(R.drawable.dinner);
+//    		MEAL.setImageResource(R.drawable.dinner);
     		break;
     	case 3:
-    		MEAL.setImageResource(R.drawable.latenight);
+//    		MEAL.setImageResource(R.drawable.latenight);
     		break;
     	}
     }

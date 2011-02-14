@@ -8,6 +8,7 @@ import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -26,13 +27,13 @@ public class ResultScreen extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resultscreen);
 		
-		Bundle bundle = getIntent().getBundleExtra("extra");
+		Bundle bundle = getIntent().getExtras();
 		
-		Restaurant[] rest = (Restaurant[])bundle.getParcelableArray("rest");
+		Parcelable[] rest = bundle.getParcelableArray("Restaurants");
 		
         lv = (ListView)findViewById(R.id.mainlist);
         lv.setTextFilterEnabled(true);         
-        lv.setAdapter(new ArrayAdapter<Restaurant>(this, R.layout.list_item, rest));
+        lv.setAdapter(new ArrayAdapter<Parcelable>(this, R.layout.list_item, rest));
         
         
 	}
