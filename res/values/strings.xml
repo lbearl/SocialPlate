@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, SocialPlate!</string>
+    <string name="app_name">SocialPlate</string>
+    <string name="package_structure">edu.msoe.SocialPlate</string>
+    <string name="location_service_fqn">edu.msoe.SocialPlate.services.RetrieveLocationService</string>
+    <string name="home_screen_fqn">edu.msoe.SocialPlate.SocialPlate</string>
+    <string name="geo_tag_screen_fqn">edu.msoe.SocialPlate.activities.GeoTag</string>
+    <string name="search_screen_fqn">edu.msoe.SocialPlate.activities.SearchScreen</string>
+    <string name="result_screen_fqn">edu.msoe.SocialPlate.activities.ResultScreen</string>
+    <string name="home_screen">HomeScreen</string>
+    <string name="search_screen">SearchScreen</string>
+    <string name="social_plate">SocialPlate</string>
+    <string name="splash_screen">SplashScreen</string>
+    <string name="price_range">Price Range</string>
+    <string name="food_type">Type of Food</string>
+</resources>
