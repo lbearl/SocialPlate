@@ -2,28 +2,31 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
   
-  	<item android:id="@+id/typeChinese"
-  		android:title="Chinese" />
-  		
   	<item android:id="@+id/typeBurger"
-  		android:title="Burger" />	
+  		android:title="Burger" />
+  		
+  	<item android:id="@+id/typeChicken"
+  		android:title="Chicken" />	
 	
-	<item android:id="@+id/typeChicken"
-  		android:title="Chicken" />  
+	<item android:id="@+id/typePizza"
+  		android:title="Pizza" />  
 
-	<item android:id="@+id/typeIceCream"
+	<item android:id="@+id/typeVegetarian"
+  		android:title="Vegetarian" />
+  		
+  	<item android:id="@+id/typeSeafood"
+  		android:title="Seafood" />
+  		
+  	<item android:id="@+id/typeIceCream"
   		android:title="Ice Cream" />
   		
+  	<item android:id="@+id/typeDonuts"
+  		android:title="Donuts" />
+  		
   	<item android:id="@+id/typeBuffet"
-  		android:title="Buffet" />
-  		
-  	<item android:id="@+id/typeMexican"
-  		android:title="Mexican" />
-  		
-  	<item android:id="@+id/typeItalian"
-  		android:title="Italian" />
+  		android:title="Buffet" />	
   		
   	<item android:id="@+id/typeTip"
   		android:title="Leave a tip for the cute waitress" />
-  						  
+ 						  
 </menu>

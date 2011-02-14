@@ -43,7 +43,7 @@ public class SocialPlate extends Activity implements OnClickListener {
 	
 	final String[] ETHNICITY_LIST = {"American","Brazilian","Chinese","Colombian","Ethiopian"};
 	final String[] COST_LIST = {"$","$$","$$$"};
-	final String[] MEAL_LIST = {"Donuts","Pizza","Chicken","Ice Cream"};
+	final String[] MEAL_LIST = {"Burger","Chicken","Pizza","Vegetarian","Seafood","Ice Cream", "Donuts","Buffet"};
 	final String[] DIRECTIONS_LIST = {"Walking","Driving","Bus"};
 	
 	
@@ -243,22 +243,23 @@ public class SocialPlate extends Activity implements OnClickListener {
     
     public void setMeal(int index){
     	switch(index){
-    	case 0:
+    	case 6:
     		MEAL.setImageResource(R.drawable.donut);
     		break;
     	case 1:
-    		MEAL.setImageResource(R.drawable.pizza);
-    		break;
-    	case 2:
     		MEAL.setImageResource(R.drawable.chicken);
     		break;
-    	case 3:
+    	case 2:
+    		MEAL.setImageResource(R.drawable.pizza);
+    		break;
+    	case 5:
     		MEAL.setImageResource(R.drawable.icecream);
     		break;
     	}
     }
     
     public void clearAll(){
+    	UserChoices.getInstance().clearAll();
     	MAP.setImageResource(R.drawable.map);
     	ETHNICITY.setImageResource(R.drawable.earth);
     	COST.setImageResource(R.drawable.cost);

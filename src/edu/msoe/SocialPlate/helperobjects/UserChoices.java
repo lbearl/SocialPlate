@@ -10,7 +10,7 @@ public class UserChoices {
 	private int directions; //0:Walking, 1:Driving, 2:Bus
 	private String ethnicity;
 	private String cost;		
-	private String meal;	//should i change this to int type? (only 4 choices)
+	private String meal;
 	private String name;
 	private double locationSearch;
 	
@@ -83,6 +83,15 @@ public class UserChoices {
 	
 	public void setLocationsSearch(double ls){
 		this.locationSearch = ls;
+	}
+	
+	public void clearAll(){
+		this.directions = -1;
+		this.ethnicity = null;
+		this.cost = null;
+		this.meal = null;
+		this.name = null;
+		locationSearch = DBAdapter.DISABLE_LOCATION_SEARCH;
 	}
 	
 	public String toString(){
