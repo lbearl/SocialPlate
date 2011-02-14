@@ -1,6 +1,7 @@
 package edu.msoe.SocialPlate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -29,6 +30,10 @@ public class RetrieverOfLocations implements LocationListener{
 	 */
 	private RetrieverOfLocations(){
 		waitingForLocationChange = true;
+		latitude = 0.0;
+		longitude = 0.0;
+		bearing = 0.0;		
+		accuracy = 0.0;
 		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 	}	
 	
@@ -57,26 +62,32 @@ public class RetrieverOfLocations implements LocationListener{
 	public void register(){
 		waitingForLocationChange = true;		
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-				0, 0, getInstance(context));
+				120000, Float.MAX_VALUE, getInstance(context));
 	}
 	
 	/**
 	 * Unregister this listener from receiving updates when a location is received
 	 */
 	public void unregister(){
-		locationManager.removeUpdates(this);
+		locationManager.removeUpdates(getInstance(context));
 	}
 	
 	/**
 	 * When location is received save it to the instance attributes
 	 */
 	public void onLocationChanged(Location location) {
-		Toast.makeText(context, "Location Found", Toast.LENGTH_SHORT).show();
-		if(location != null){
+		Toast.makeText(context, "Location Found", Toast.LENGTH_LONG).show();
+		if(location != null){			
 			waitingForLocationChange = false;
 			latitude = location.getLatitude();
 			longitude = location.getLongitude();
 			accuracy = location.getAccuracy();
+			Toast.makeText(context, "Location Found with accuracy " + accuracy, Toast.LENGTH_LONG).show();
+			Intent service = new Intent();
+			service.setClassName(context.getResources().getString(R.string.package_structure), 
+								 context.getResources().getString(R.string.location_service_fqn));
+			context.stopService(service);
+				
 		}
 		
 	}

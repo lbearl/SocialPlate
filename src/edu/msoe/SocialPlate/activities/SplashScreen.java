@@ -12,6 +12,12 @@ public class SplashScreen extends Activity{
 	private int splashTime = 5000;
 	private boolean active = true;
 	
+	/**
+	 * Start the splash to display an image / pause for the user
+	 * Start the service that requests location updates.
+	 * After the time period or the user touches the screen,
+	 * finish the activity to make sure it can't be backed up to. 
+	 */
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splashscreen);
@@ -36,7 +42,9 @@ public class SplashScreen extends Activity{
 				}catch(InterruptedException e){
 					//do nothing
 				}finally{
+					finish();
 					Intent homeScreen = new Intent();
+					
 					homeScreen.setClassName(getResources().getString(R.string.package_structure),
 							getResources().getString(R.string.home_screen_fqn));
 					startActivity(homeScreen);

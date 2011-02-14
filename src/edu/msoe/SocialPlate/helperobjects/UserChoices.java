@@ -1,5 +1,7 @@
 package edu.msoe.SocialPlate.helperobjects;
 
+import edu.msoe.SocialPlate.database.DBAdapter;
+
 /**
  * Singleton object for storing the user's choices from the home screen of the app.
  */
@@ -9,6 +11,9 @@ public class UserChoices {
 	private String ethnicity;
 	private String cost;		
 	private String meal;	//should i change this to int type? (only 4 choices)
+	private String name;
+	private double locationSearch;
+	
 	
 	private static UserChoices uc= null;
 	
@@ -17,6 +22,8 @@ public class UserChoices {
 		this.ethnicity = null;
 		this.cost = null;
 		this.meal = null;
+		this.name = null;
+		locationSearch = DBAdapter.DISABLE_LOCATION_SEARCH;
 	}
 	
 	public static UserChoices getInstance(){
@@ -28,6 +35,10 @@ public class UserChoices {
 			}
 		}
 		return uc;
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 	public int getDirections(){
@@ -46,6 +57,14 @@ public class UserChoices {
 		return meal;
 	}
 	
+	public double getLocationSearch(){
+		return locationSearch;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
 	public void setDirections(int d){
 		this.directions = d;
 	}
@@ -60,6 +79,10 @@ public class UserChoices {
 	
 	public void setMeal(String m){
 		this.meal = m;
+	}
+	
+	public void setLocationsSearch(double ls){
+		this.locationSearch = ls;
 	}
 	
 	public String toString(){

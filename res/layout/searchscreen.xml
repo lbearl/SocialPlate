@@ -9,7 +9,7 @@
 		  	android:id="@+id/searchName"	  	
 		  	android:layout_width="fill_parent"
 		  	android:layout_height="wrap_content"
-		  	android:text="" />   
+		  	android:text="" > </EditText>   
   
    	<Button android:id="@+id/searchPrice"
 			android:layout_below="@id/searchName"

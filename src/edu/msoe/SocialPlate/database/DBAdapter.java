@@ -3,7 +3,10 @@ package edu.msoe.SocialPlate.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.msoe.SocialPlate.RetrieverOfLocations;
+import edu.msoe.SocialPlate.helperobjects.DistanceCalculator;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
+import edu.msoe.SocialPlate.helperobjects.UserChoices;
 
 import android.R.id;
 import android.content.ContentValues;
@@ -94,6 +97,11 @@ public class DBAdapter {
 		return this.insertStmt.executeInsert();		
 	}
 	
+	/**
+	 * This method is called from the outside and accesses the singleton class
+	 * to get the user query parameters
+	 * @return 
+	 */
 	public Restaurant[] queryRestaurant(){
 		
 		List<String> rName = new ArrayList<String>();
@@ -105,11 +113,34 @@ public class DBAdapter {
 		List<String> nType = new ArrayList<String>();
 		List<String> nEthnicity = new ArrayList<String>();
 		
-		double gLat=0, lLat=0, gLng=0, lLng=0;
+		String name = UserChoices.getInstance().getName();
+		String cost = UserChoices.getInstance().getCost();
+		String type = UserChoices.getInstance().getMeal(); 
+		String ethnicity = UserChoices.getInstance().getEthnicity(); 
+		
+		if(name!=null){
+			rName.add(name);
+		}if(cost!=null){
+			rPrice.add(cost);
+		}if(type!=null){
+			rType.add(type);
+		}if(ethnicity!=null){
+			rEthnicity.add(ethnicity);
+		}
+		
+		double userLat= DISABLE_LOCATION_SEARCH;
+		double userLng= DISABLE_LOCATION_SEARCH;
+		
+		if(!RetrieverOfLocations.getInstance(context).waitingForLocationChange){
+			userLat = RetrieverOfLocations.getInstance(context).latitude;
+			userLng = RetrieverOfLocations.getInstance(context).longitude;
+		}
+		
+		double dist = UserChoices.getInstance().getLocationSearch();
 		
 		Restaurant[] restaurants = queryRestaurants(rName, rPrice, rType, rEthnicity,
 					nName, nPrice, nType, nEthnicity,
-					gLat, lLat, gLng, lLng); 
+					userLat, userLng, dist); 
 		
 		return restaurants;
 	}
@@ -124,20 +155,17 @@ public class DBAdapter {
 	 * @param nName
 	 * @param nPrice
 	 * @param nType
-	 * @param gLat
-	 * @param lLat
-	 * @param gLng
-	 * @param lLng
+	 * @param restLat
+	 * @param restLng
+	 * @param userLat
+	 * @param userLng
 	 * @return
 	 */
 	public Restaurant[] queryRestaurants(List<String> rName, List<String> rPrice, List<String> rType,
 			List<String> rEthnicity, List<String> nName, List<String> nPrice, List<String> nType,
-			List<String> nEthnicity,
-			double gLat, double lLat, 
-			double gLng, double lLng){
-		
-		String query = SELECT;
-		
+			List<String> nEthnicity,			 
+			double userLat, double userLng, double dist){
+				
 		StringBuilder where = new StringBuilder();
 		int numOfAnds = rName.size() + rPrice.size() + rType.size() + nName.size() + nPrice.size() + nType.size();
 		numOfAnds--;
@@ -168,10 +196,10 @@ public class DBAdapter {
 		for(int i=0; i<nEthnicity.size(); i++)
 		{ where.append(NSELECT_ETHNICITY); if(numOfAnds > 0){where.append(" AND "); numOfAnds--;}}	
 		
-		if(gLat != DISABLE_LOCATION_SEARCH && lLat != DISABLE_LOCATION_SEARCH && gLng != DISABLE_LOCATION_SEARCH
-				&& lLng != DISABLE_LOCATION_SEARCH){			
-			where.append("longitude<="+ gLng + " AND longitude>="+ lLng+" AND latitude<="+gLat+" AND latitude >="+lLat);			
-		}
+//		if(gLat != DISABLE_LOCATION_SEARCH && lLat != DISABLE_LOCATION_SEARCH && gLng != DISABLE_LOCATION_SEARCH
+//				&& lLng != DISABLE_LOCATION_SEARCH){			
+//			where.append("longitude<="+ gLng + " AND longitude>="+ lLng+" AND latitude<="+gLat+" AND latitude >="+lLat);			
+//		}
 		
 		String[] selectionArgs = new String[rName.size()+rPrice.size()+rType.size()+rEthnicity.size()+nName.size()+nPrice.size()+nType.size()+nEthnicity.size()];
 		List<String> masterList = new ArrayList<String>();
@@ -191,22 +219,52 @@ public class DBAdapter {
 			masterList.addAll(nType);
 		}if(nEthnicity != null){
 			masterList.addAll(nEthnicity);
-		}
-		
+		}		
 		
 		masterList.toArray(selectionArgs);
 		
 		Cursor cursor = this.db.query(TABLE_NAME, 
 									new String[]{"id","restaurant_name","latitude","longitude","description","price","type","ethnicity"},
 									where.toString(),
-									selectionArgs, null, null, null);
+									selectionArgs, null, null, null);		
 		
-		Restaurant[] masterRestaurantList = new Restaurant[cursor.getCount()];		
-		for(int i = 0; cursor.moveToNext(); i++ ){			
-			masterRestaurantList[i] = new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getDouble(2),
-					cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));			
-		}	
+		Restaurant[] masterRestaurantList = new Restaurant[cursor.getCount()];
+		Restaurant tempRestaurant = null;
+		int index = 0;
+		while(cursor.moveToNext()){			
+			tempRestaurant = new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getDouble(2),
+					cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));			 
+			if(queryLocation(tempRestaurant.getLatitude(), tempRestaurant.getLongitude(), userLat, userLng, dist, tempRestaurant)){
+				masterRestaurantList[index] = tempRestaurant;
+				index++;
+			}				 
+		}				
 		return masterRestaurantList;
+	}
+	
+	/**
+	 * Determines if a restaurant is within a user specified range
+	 * @param restLat
+	 * @param restLng
+	 * @param userLat
+	 * @param userLng
+	 * @param dist, kilometers.
+	 * @return
+	 */
+	public boolean queryLocation(double restLat, double restLng, double userLat, double userLng, double dist, Restaurant rest){
+		boolean ret = false;
+		
+		if(userLat != DISABLE_LOCATION_SEARCH && userLng != DISABLE_LOCATION_SEARCH && dist != DISABLE_LOCATION_SEARCH){
+			double distanceFormula = DistanceCalculator.calcDistance(restLat, restLng, userLat, userLng);
+			rest.setDistance(distanceFormula);
+			
+			if(dist==0.0 || distanceFormula <= dist){
+				ret = true;
+			}
+			
+		}
+		
+		return ret;
 	}
 	
 	

@@ -23,6 +23,7 @@
 	android:layout_height="wrap_content"
 	android:text="km"
 	android:textSize="30sp"
+	android:textStyle="bold"
 	android:layout_marginTop="50dip"
 	android:layout_marginLeft="260dip">
 	</TextView>
@@ -50,8 +51,8 @@
 	android:layout_marginTop="180dip"
 	android:layout_weight="0"
 	android:textSize="20sp"
-	android:textStyle="bold">
-	</RadioButton>
+	android:textStyle="bold"
+	/>
 
 <RadioButton android:id="@+id/driving"
 	android:layout_width="wrap_content"
@@ -62,8 +63,8 @@
 	android:layout_marginTop="220dip"
 	android:layout_weight="0"
 	android:textSize="20sp"
-	android:textStyle="bold">
-	</RadioButton>
+	android:textStyle="bold"
+	/>
 	
 <RadioButton android:id="@+id/bus"
 	android:layout_width="wrap_content"
@@ -74,8 +75,8 @@
 	android:layout_marginTop="260dip"
 	android:layout_weight="0"
 	android:textSize="20sp"
-	android:textStyle="bold">
-	</RadioButton>
+	android:textStyle="bold"
+	/>
 </RadioGroup>
 
 </RelativeLayout>
