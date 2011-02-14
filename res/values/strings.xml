@@ -8,6 +8,7 @@
     <string name="geo_tag_screen_fqn">edu.msoe.SocialPlate.activities.GeoTag</string>
     <string name="search_screen_fqn">edu.msoe.SocialPlate.activities.SearchScreen</string>
     <string name="result_screen_fqn">edu.msoe.SocialPlate.activities.ResultScreen</string>
+    <string name="directions_screen_fqn">edu.msoe.SocialPlate.activities.MapDirections</string>
     <string name="home_screen">HomeScreen</string>
     <string name="search_screen">SearchScreen</string>
     <string name="social_plate">SocialPlate</string>
@@ -15,3 +16,4 @@
     <string name="price_range">Price Range</string>
     <string name="food_type">Type of Food</string>
 </resources>
+

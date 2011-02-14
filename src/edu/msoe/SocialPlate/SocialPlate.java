@@ -2,6 +2,7 @@ package edu.msoe.SocialPlate;
 
 import java.util.ArrayList;
 
+import edu.msoe.SocialPlate.activities.MapDirections;
 import edu.msoe.SocialPlate.activities.ResultScreen;
 import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
@@ -42,7 +43,7 @@ public class SocialPlate extends Activity implements OnClickListener {
 	
 	final String[] ETHNICITY_LIST = {"American","Brazilian","Chinese","Colombian","Ethiopian"};
 	final String[] COST_LIST = {"$","$$","$$$"};
-	final String[] MEAL_LIST = {"Breakfast","Lunch","Dinner","Late Night"};
+	final String[] MEAL_LIST = {"Donuts","Pizza","Chicken","Ice Cream"};
 	final String[] DIRECTIONS_LIST = {"Walking","Driving","Bus"};
 	
 	
@@ -111,25 +112,11 @@ public class SocialPlate extends Activity implements OnClickListener {
     
     public void onClick(View view){
     	if(view == MAP){
-    		/*
+    		Intent intent = new Intent();
+    		intent.setClassName(getResources().getString(R.string.package_structure),
+    				getResources().getString(R.string.directions_screen_fqn));
     		
-				Start new activity?
-					-can't have input in an alertdialog
-
-    		*/
-    		
-    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    		builder.setTitle("Directions?");
-    		builder.setSingleChoiceItems(DIRECTIONS_LIST, -1, new DialogInterface.OnClickListener(){
-    			public void onClick(DialogInterface dialog, int item){
-    				UserChoices.getInstance().setDirections(item);
-    				Toast.makeText(SocialPlate.this, DIRECTIONS_LIST[item], Toast.LENGTH_SHORT).show();
-    				dialog.dismiss();
-    			}
-    		});
-    		AlertDialog alert = builder.create();
-    		alert.show();
-    		
+    		startActivity(intent);
     	}
     	else if(view == ETHNICITY){
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -186,9 +173,10 @@ public class SocialPlate extends Activity implements OnClickListener {
     	
     	
     	else if(view == GEOTAG){
-    	/*
-    	 * 	DO THIS!!!!!	
-    	 */
+    		Intent intent = new Intent();
+    		intent.setClassName(getResources().getString(R.string.package_structure),
+    				getResources().getString(R.string.geo_tag_screen_fqn));
+    		startActivity(intent);
     	}
     	else if(view == CLEARALL){
     		Toast.makeText(this, "Clearing all choices", Toast.LENGTH_SHORT).show();
@@ -256,16 +244,16 @@ public class SocialPlate extends Activity implements OnClickListener {
     public void setMeal(int index){
     	switch(index){
     	case 0:
-//    		MEAL.setImageResource(R.drawable.breakfast);
+    		MEAL.setImageResource(R.drawable.donut);
     		break;
     	case 1:
-//    		MEAL.setImageResource(R.drawable.lunch);
+    		MEAL.setImageResource(R.drawable.pizza);
     		break;
     	case 2:
-//    		MEAL.setImageResource(R.drawable.dinner);
+    		MEAL.setImageResource(R.drawable.chicken);
     		break;
     	case 3:
-//    		MEAL.setImageResource(R.drawable.latenight);
+    		MEAL.setImageResource(R.drawable.icecream);
     		break;
     	}
     }
