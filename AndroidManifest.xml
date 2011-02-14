@@ -24,7 +24,10 @@
         		  android:label="GeoTag A Restuarant">
         </activity>                
 
-
+		<activity android:name=".activities.MapDirections"
+        		  android:label="Map Options">
+        </activity>
+        
 		<service android:enabled="true" android:name=".services.RetrieveLocationService" />
 		
     </application>
