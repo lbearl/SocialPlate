@@ -41,7 +41,9 @@ public class SocialPlate extends Activity implements OnClickListener {
 	final int SEARCH_ID = 7;
 	final int PLATE_ID = 8;
 	
-	final String[] ETHNICITY_LIST = {"American","Brazilian","Chinese","Colombian","Ethiopian"};
+	final String[] ETHNICITY_LIST = {"American","Brazilian","Chinese","Colombian","Ethiopian","French","German","Greek",
+									"Indian","Israeli","Italian","Jamaican","Japanese","Korean","Mexican","Pakistani",
+									"Filippino","Polish","Puerto Rican","Spanish","Vietnamese"};
 	final String[] COST_LIST = {"$","$$","$$$"};
 	final String[] MEAL_LIST = {"Burger","Chicken","Pizza","Vegetarian","Seafood","Ice Cream", "Donuts","Buffet"};
 	final String[] DIRECTIONS_LIST = {"Walking","Driving","Bus"};
@@ -220,6 +222,54 @@ public class SocialPlate extends Activity implements OnClickListener {
 	    	break;
 		case 4:
 			ETHNICITY.setImageResource(R.drawable.ethiopia);
+	    	break;
+		case 5:
+			ETHNICITY.setImageResource(R.drawable.france);
+	    	break;
+		case 6:
+			ETHNICITY.setImageResource(R.drawable.germany);
+	    	break;
+		case 7:
+			ETHNICITY.setImageResource(R.drawable.greece);
+	    	break;
+		case 8:
+			ETHNICITY.setImageResource(R.drawable.india);
+	    	break;
+		case 9:
+			ETHNICITY.setImageResource(R.drawable.israel);
+	    	break;
+		case 10:
+			ETHNICITY.setImageResource(R.drawable.italy);
+	    	break;
+		case 11:
+			ETHNICITY.setImageResource(R.drawable.jamaica);
+	    	break;
+		case 12:
+			ETHNICITY.setImageResource(R.drawable.japan);
+	    	break;
+		case 13:
+			ETHNICITY.setImageResource(R.drawable.korea);
+	    	break;
+		case 14:
+			ETHNICITY.setImageResource(R.drawable.mexico);
+	    	break;
+		case 15:
+			ETHNICITY.setImageResource(R.drawable.pakistan);
+	    	break;
+		case 16:
+			ETHNICITY.setImageResource(R.drawable.philippines);
+	    	break;
+		case 17:
+			ETHNICITY.setImageResource(R.drawable.poland);
+	    	break;
+		case 18:
+			ETHNICITY.setImageResource(R.drawable.puertorico);
+	    	break;
+		case 19:
+			ETHNICITY.setImageResource(R.drawable.spain);
+	    	break;
+		case 20:
+			ETHNICITY.setImageResource(R.drawable.vietnam);
 	    	break;
 	    default:
 	    	ETHNICITY.setImageResource(R.drawable.earth);

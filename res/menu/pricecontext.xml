@@ -2,13 +2,11 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
   	
-  	<item android:id="@+id/priceImNotPaying"
-  			android:title="I'm Not Paying" />  	
-  	<item android:id="@+id/priceExpensive"
-  			android:title="Expensive"/>
-  	<item android:id="@+id/priceCheap"
-  			android:title="Cheap" />
-  	<item android:id="@+id/priceFree"
-  			android:title="Free" />				
-  
+  	<item android:id="@+id/cheap"
+  			android:title="Cheap" />  	
+  	<item android:id="@+id/moderate"
+  			android:title="Moderate"/>
+  	<item android:id="@+id/expensive"
+  			android:title="Expensive" />
+  	
 </menu>
