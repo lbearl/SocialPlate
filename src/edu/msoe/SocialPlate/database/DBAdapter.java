@@ -75,7 +75,7 @@ public class DBAdapter {
 		openHelper.close();
 		
 		this.db = openHelper.getWritableDatabase();				//create a writable database connection
-		this.insertStmt = this.db.compileStatement(INSERT);	//create statement to insert data	
+		
 	}
 	
 	/**
@@ -87,6 +87,7 @@ public class DBAdapter {
 	 */
 	public long insert(String rName, double latitude, double longitude, String description,
 			String price, String type, String ethnicity){		
+		this.insertStmt = this.db.compileStatement(INSERT);	//create statement to insert data	
 		this.insertStmt.bindString(1, price);
 		this.insertStmt.bindDouble(2, latitude);
 		this.insertStmt.bindDouble(3, longitude);

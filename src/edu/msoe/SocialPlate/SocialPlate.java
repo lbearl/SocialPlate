@@ -155,7 +155,7 @@ public class SocialPlate extends Activity implements OnClickListener {
     	}
     	else if(view == MEAL){
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    		builder.setTitle("Choose Meal");
+    		builder.setTitle("Choose Food Type");
     		builder.setSingleChoiceItems(MEAL_LIST, -1, new DialogInterface.OnClickListener(){
     			public void onClick(DialogInterface dialog, int item){
     				setMeal(item);
@@ -187,6 +187,7 @@ public class SocialPlate extends Activity implements OnClickListener {
     		DBAdapter dba = new DBAdapter(getApplicationContext());
     		
     		Restaurant[] restaurant = dba.queryRestaurant();
+    		dba.closeDB();
     		
     		Toast.makeText(this, "Choosing your restaurant", Toast.LENGTH_SHORT).show();
     		
