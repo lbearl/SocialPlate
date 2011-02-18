@@ -112,7 +112,7 @@ public class Restaurant implements Parcelable{
 	}
 
 	public String toString(){
-		return name + " " + latitude + " " + longitude + " " + description + " " + priceRange + " " + foodType + " " + ethnicity;
+		return name + " " + latitude + " " + longitude + " " + description + " " + priceRange + " " + foodType + " " + ethnicity + " Distance " + distance; 
 	}
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

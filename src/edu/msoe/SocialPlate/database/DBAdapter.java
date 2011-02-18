@@ -120,46 +120,53 @@ public class DBAdapter {
 		String cost = UserChoices.getInstance().getCost();
 		String type = UserChoices.getInstance().getMeal(); 
 		String ethnicity = UserChoices.getInstance().getEthnicity();
-		
-//		String name = null;
-//		String cost = null;
-//		String type = "Chicken"; 
-//		String ethnicity = null; 
-		
-		
-		Log.i("DBAdapter User Parameters", name+"");
-		Log.i("DBAdapter User Parameters", cost+"");
-		Log.i("DBAdapter User Parameters", type+"");
-		Log.i("DBAdapter User Parameters", ethnicity+"");
-		if(name!=null){
-			Log.i("Query Rest first", "adding name");
-			rName.add(name);
-		}if(cost!=null){
-			Log.i("Query Rest first", "adding price");
-			rPrice.add(cost);
-		}if(type!=null){
-			Log.i("Query Rest first", "adding type");
-			rType.add(type);
-		}if(ethnicity!=null){
-			Log.i("Query Rest first", "adding ethnicity");
-			rEthnicity.add(ethnicity);
-		}
+		Double locationSearch = UserChoices.getInstance().getLocationSearch();
 		
 		double userLat= DISABLE_LOCATION_SEARCH;
-		double userLng= DISABLE_LOCATION_SEARCH;
-		
+		double userLng= DISABLE_LOCATION_SEARCH;		
 		if(!RetrieverOfLocations.getInstance(context).waitingForLocationChange){
 			userLat = RetrieverOfLocations.getInstance(context).latitude;
 			userLng = RetrieverOfLocations.getInstance(context).longitude;
 		}
 		
-		double dist = UserChoices.getInstance().getLocationSearch();
+		Restaurant[] restaurants = null;
 		
-		Restaurant[] restaurants = queryRestaurants(rName, rPrice, rType, rEthnicity,
-					nName, nPrice, nType, nEthnicity,
-					userLat, userLng, dist); 
+		if(name!=null && cost!=null && type!=null && ethnicity!=null 
+				&& userLat!= DISABLE_LOCATION_SEARCH && userLng != DISABLE_LOCATION_SEARCH){
+						
+			restaurants = selectAll(true);
+		}else if(name!=null && cost!=null && type!=null & ethnicity!=null){
+			restaurants = selectAll(false);			
+		}else{				
 		
-		Log.i("DBAdapter return size", restaurants.length+"");
+			Log.i("DBAdapter User Parameters", name+"");
+			Log.i("DBAdapter User Parameters", cost+"");
+			Log.i("DBAdapter User Parameters", type+"");
+			Log.i("DBAdapter User Parameters", ethnicity+"");
+			if(name!=null){
+				Log.i("Query Rest first", "adding name");
+				rName.add(name);
+			}if(cost!=null){
+				Log.i("Query Rest first", "adding price");
+				rPrice.add(cost);
+			}if(type!=null){
+				Log.i("Query Rest first", "adding type");
+				rType.add(type);
+			}if(ethnicity!=null){
+				Log.i("Query Rest first", "adding ethnicity");
+				rEthnicity.add(ethnicity);
+			}
+			
+		
+			double dist = UserChoices.getInstance().getLocationSearch();		
+			restaurants = queryRestaurants(rName, rPrice, rType, rEthnicity,
+						nName, nPrice, nType, nEthnicity,
+						userLat, userLng, dist); 		
+			Log.i("DBAdapter return size", restaurants.length+"");
+		}
+			
+		
+		
 		
 		return restaurants;
 	}
@@ -246,8 +253,7 @@ public class DBAdapter {
 									where.toString(),
 									selectionArgs, null, null, null);
 		Log.i("DBAdapter DB Size", countRestaurants()+"");
-		Log.i("DBAdapter actually query", cursor.getCount()+"");
-		selectAll();
+		Log.i("DBAdapter actually query", cursor.getCount()+"");		
 		Restaurant[] masterRestaurantList = new Restaurant[cursor.getCount()];
 		Restaurant tempRestaurant = null;
 		int index = 0;
@@ -280,11 +286,10 @@ public class DBAdapter {
 			distanceFormula = DistanceCalculator.calcDistance(restLat, restLng, userLat, userLng);
 			rest.setDistance(distanceFormula);
 		}	
-			if(dist==DISABLE_LOCATION_SEARCH || distanceFormula <= dist){
-				ret = true;
-			}
-			
 		
+		if(dist==DISABLE_LOCATION_SEARCH || distanceFormula <= dist){
+			ret = true;
+		}	
 		
 		return ret;
 	}
@@ -347,8 +352,8 @@ public class DBAdapter {
 	 * Select all the items and return them
 	 * @return
 	 */
-	public ArrayList<String> selectAll(){
-		ArrayList<String> list = new ArrayList<String>();
+	public Restaurant[] selectAll(boolean getLocation){
+		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
 		
 		Cursor cursor = this.db.query(TABLE_NAME, new String[]{"id", "restaurant_name	", "latitude", 
 				"longitude", "description", "price_name", "f_type", "ethnicity"},
@@ -356,10 +361,13 @@ public class DBAdapter {
 		
 		if(cursor.moveToFirst()){
 			do{
-				list.add("id" + cursor.getInt(0) + " Name " + cursor.getString(1) + " Lat " + cursor.getInt(2)
-						+ " Lng " + cursor.getInt(3) + " description " + cursor.getString(4) + 
-						" price " + cursor.getString(5) + " type " + cursor.getString(6) + " ethnicity "
-						+ cursor.getString(7));
+//				list.add("id" + cursor.getInt(0) + " Name " + cursor.getString(1) + " Lat " + cursor.getInt(2)
+//						+ " Lng " + cursor.getInt(3) + " description " + cursor.getString(4) + 
+//						" price " + cursor.getString(5) + " type " + cursor.getString(6) + " ethnicity "
+//						+ cursor.getString(7));
+				list.add(new Restaurant(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2),
+						cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
+						cursor.getString(7)));
 			}while(cursor.moveToNext());			
 		}
 		
@@ -367,12 +375,13 @@ public class DBAdapter {
 			cursor.close();
 		}
 		
-		for(String s : list){
-			Log.i("Select ALL", s);
-		}
-		
-		
-		return list;
+		if(getLocation){
+			for(Restaurant r : list){
+				
+			}
+		}	
+		Restaurant[] restaurants = new Restaurant[list.size()];
+		return list.toArray(restaurants);
 	}
 	
 	public void closeDB(){
