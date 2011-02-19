@@ -46,7 +46,7 @@ public class ResultScreen extends Activity{
 				Intent intent = new Intent();
   	    		intent.setClassName(getResources().getString(R.string.package_structure),
   	    				getResources().getString(R.string.text_screen_fqn));
-  	    		intent.putExtra("Restaurant", lv.getItemAtPosition(position).toString());
+  	    		intent.putExtra("Restaurant", ((Restaurant) lv.getItemAtPosition(position)).getName());
 				startActivity(intent);
 				
 			}
