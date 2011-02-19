@@ -28,13 +28,10 @@
         		  android:label="Map Options">
         </activity>
         
-<<<<<<< HEAD
-        
-=======
         <activity android:name=".activities.TextActivity"
         		  android:label="Invite Others">
         </activity>
->>>>>>> fe82a373f02f508e2d6a9bcd1a7d6b4d7125c179
+
         
 		<service android:enabled="true" android:name=".services.RetrieveLocationService" />
 		
