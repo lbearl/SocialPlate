@@ -1,5 +1,7 @@
 package edu.msoe.SocialPlate.helperobjects;
 
+import java.text.DecimalFormat;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -111,8 +113,15 @@ public class Restaurant implements Parcelable{
 		this.distance = distance;
 	}
 
-	public String toString(){
-		return name + " " + latitude + " " + longitude + " " + description + " " + priceRange + " " + foodType + " " + ethnicity;
+	public String toString(){		
+		DecimalFormat dist = new DecimalFormat("###.###");		
+		String ret = "";		
+		if(distance==-1){
+			ret = name+" "+description+" "+priceRange+" "+foodType+" "+ethnicity; 
+		}else{
+			ret = name+" "+description+" "+priceRange+" "+foodType+" "+ethnicity+" Distance "+ dist.format(distance) + " km";
+		}		
+		return ret;  
 	}
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

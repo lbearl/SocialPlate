@@ -40,7 +40,7 @@ public class SocialPlate extends Activity implements OnClickListener {
 	final String[] ETHNICITY_LIST = {"American","Brazilian","Chinese","Colombian","Ethiopian","French","German","Greek",
 									"Indian","Israeli","Italian","Jamaican","Japanese","Korean","Mexican","Pakistani",
 									"Filippino","Polish","Puerto Rican","Spanish","Vietnamese"};
-	final String[] COST_LIST = {"$","$$","$$$"};
+	final String[] COST_LIST = {"Cheap","Moderate","Expensive"};
 	final String[] MEAL_LIST = {"Burger","Chicken","Pizza","Vegetarian","Seafood","Ice Cream", "Donuts","Buffet"};
 	final String[] DIRECTIONS_LIST = {"Walking","Driving","Bus"};
 	

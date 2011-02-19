@@ -32,6 +32,12 @@ public class DistanceCalculator {
 	public static double calcDistance(double lat1, double lon1,
 			double lat2, double lon2){
 		//Bound checking
+		
+		lat1 = lat1/1E6;
+		lon1 = lon1/1E6;
+		lat2 = lat2/1E6;
+		lon2 = lon2/1E6;		
+		
 		if(lat1 > 90.0 || lat1 < -90.0){
 			throw new IllegalArgumentException();			
 		} else if(lon1 > 180.0 || lon1 < -180.0){
@@ -55,8 +61,8 @@ public class DistanceCalculator {
 
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1.0 - a));
 
-		distance = EARTH_RADIUS * c;
-
+		distance = EARTH_RADIUS * c;	
+		
 		return distance;
 	}
 	

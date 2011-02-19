@@ -79,14 +79,15 @@ public class RetrieverOfLocations implements LocationListener{
 		Toast.makeText(context, "Location Found", Toast.LENGTH_LONG).show();
 		if(location != null){			
 			waitingForLocationChange = false;
-			latitude = location.getLatitude();
-			longitude = location.getLongitude();
+			latitude = location.getLatitude()*1E6;
+			longitude = location.getLongitude()*1E6;
 			accuracy = location.getAccuracy();
+			Toast.makeText(context, "Lat:" + latitude + " Lng:" + longitude, Toast.LENGTH_SHORT).show();
 			Toast.makeText(context, "Location Found with accuracy " + accuracy, Toast.LENGTH_LONG).show();
 			Intent service = new Intent();
 			service.setClassName(context.getResources().getString(R.string.package_structure), 
 								 context.getResources().getString(R.string.location_service_fqn));
-			context.stopService(service);
+		//	context.stopService(service);
 				
 		}
 		
