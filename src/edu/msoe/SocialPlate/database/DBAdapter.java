@@ -131,18 +131,26 @@ public class DBAdapter {
 		
 		Restaurant[] restaurants = null;
 		
-		if(name!=null && cost!=null && type!=null && ethnicity!=null 
-				&& userLat!= DISABLE_LOCATION_SEARCH && userLng != DISABLE_LOCATION_SEARCH){
-						
-			restaurants = selectAll(true);
-		}else if(name!=null && cost!=null && type!=null & ethnicity!=null){
-			restaurants = selectAll(false);			
+		if(name==null && cost==null && type==null && ethnicity==null			
+				&& locationSearch == DISABLE_LOCATION_SEARCH &&
+				userLat==DISABLE_LOCATION_SEARCH && userLng==DISABLE_LOCATION_SEARCH){
+			Log.i("DBAdapter", "no distance will be involved");			
+			
+			restaurants = selectAll();
+			
+		}else if(name==null && cost==null && type==null & ethnicity==null &&
+				locationSearch==DISABLE_LOCATION_SEARCH &&
+				userLat != DISABLE_LOCATION_SEARCH && userLng != DISABLE_LOCATION_SEARCH){
+			Log.i("DBAdapter", "Distance Included");
+			
+			restaurants = selectAll(userLat, userLng);			
 		}else{				
 		
 			Log.i("DBAdapter User Parameters", name+"");
 			Log.i("DBAdapter User Parameters", cost+"");
 			Log.i("DBAdapter User Parameters", type+"");
 			Log.i("DBAdapter User Parameters", ethnicity+"");
+			Log.i("DBAdapter User Parameters", locationSearch+"");
 			if(name!=null){
 				Log.i("Query Rest first", "adding name");
 				rName.add(name);
@@ -158,10 +166,10 @@ public class DBAdapter {
 			}
 			
 		
-			double dist = UserChoices.getInstance().getLocationSearch();		
+					
 			restaurants = queryRestaurants(rName, rPrice, rType, rEthnicity,
 						nName, nPrice, nType, nEthnicity,
-						userLat, userLng, dist); 		
+						userLat, userLng, locationSearch); 		
 			Log.i("DBAdapter return size", restaurants.length+"");
 		}
 			
@@ -287,7 +295,7 @@ public class DBAdapter {
 			rest.setDistance(distanceFormula);
 		}	
 		
-		if(dist==DISABLE_LOCATION_SEARCH || distanceFormula <= dist){
+		if(distanceFormula <= dist){
 			ret = true;
 		}	
 		
@@ -352,37 +360,68 @@ public class DBAdapter {
 	 * Select all the items and return them
 	 * @return
 	 */
-	public Restaurant[] selectAll(boolean getLocation){
-		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
-		
+	public Restaurant[] selectAll(double userLat, double userLng){			
 		Cursor cursor = this.db.query(TABLE_NAME, new String[]{"id", "restaurant_name	", "latitude", 
 				"longitude", "description", "price_name", "f_type", "ethnicity"},
 				null, null, null, null, "id desc");
 		
-		if(cursor.moveToFirst()){
-			do{
+		Restaurant[] restaurants = new Restaurant[cursor.getCount()];
+		
+		
+		for(int i = 0; cursor.moveToNext(); i++){
 //				list.add("id" + cursor.getInt(0) + " Name " + cursor.getString(1) + " Lat " + cursor.getInt(2)
 //						+ " Lng " + cursor.getInt(3) + " description " + cursor.getString(4) + 
 //						" price " + cursor.getString(5) + " type " + cursor.getString(6) + " ethnicity "
 //						+ cursor.getString(7));
-				list.add(new Restaurant(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2),
+				Log.i("Select All", "adding restaurant");
+				restaurants[i] = new Restaurant(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2),
 						cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
-						cursor.getString(7)));
-			}while(cursor.moveToNext());			
+						cursor.getString(7));
 		}
+		
+		
+		if(cursor != null && !cursor.isClosed()){
+			cursor.close();
+		}		
+		Restaurant r;
+		for(int i=0; i < restaurants.length ; i++){
+			r=restaurants[i];
+			queryLocation(r.getLatitude(), r.getLongitude(), userLat, userLng, 0, r);
+		}			
+		
+		return restaurants;
+	}
+	
+	/**
+	 * Select all the items and return them
+	 * @return
+	 */
+	public Restaurant[] selectAll(){			
+		Cursor cursor = this.db.query(TABLE_NAME, new String[]{"id", "restaurant_name	", "latitude", 
+				"longitude", "description", "price_name", "f_type", "ethnicity"},
+				null, null, null, null, "id desc");
+		
+		Restaurant[] restaurants = new Restaurant[cursor.getCount()];
+		
+		
+		for(int i = 0; cursor.moveToNext(); i++){
+//				list.add("id" + cursor.getInt(0) + " Name " + cursor.getString(1) + " Lat " + cursor.getInt(2)
+//						+ " Lng " + cursor.getInt(3) + " description " + cursor.getString(4) + 
+//						" price " + cursor.getString(5) + " type " + cursor.getString(6) + " ethnicity "
+//						+ cursor.getString(7));
+				restaurants[i] = new Restaurant(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2),
+						cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
+						cursor.getString(7));
+		}
+		
 		
 		if(cursor != null && !cursor.isClosed()){
 			cursor.close();
 		}
-		
-		if(getLocation){
-			for(Restaurant r : list){
-				
-			}
-		}	
-		Restaurant[] restaurants = new Restaurant[list.size()];
-		return list.toArray(restaurants);
+		Log.i("select all", "size of restaurants " + restaurants.length);
+		return restaurants;
 	}
+	
 	
 	public void closeDB(){
 		if(db!=null &&  db.isOpen()){			
