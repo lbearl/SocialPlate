@@ -288,7 +288,7 @@ public class DBAdapter {
 	 */
 	public boolean queryLocation(double restLat, double restLng, double userLat, double userLng, double dist, Restaurant rest){
 		boolean ret = false;
-		double distanceFormula = 0.0;
+		double distanceFormula = DISABLE_LOCATION_SEARCH;
 		
 		if(userLat != DISABLE_LOCATION_SEARCH && userLng != DISABLE_LOCATION_SEARCH && dist != DISABLE_LOCATION_SEARCH){
 			distanceFormula = DistanceCalculator.calcDistance(restLat, restLng, userLat, userLng);
