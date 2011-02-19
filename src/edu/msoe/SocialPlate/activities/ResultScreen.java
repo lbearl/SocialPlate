@@ -11,10 +11,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.AdapterView.OnItemClickListener;
+=======
+>>>>>>> fe82a373f02f508e2d6a9bcd1a7d6b4d7125c179
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class ResultScreen extends Activity{
 
@@ -39,6 +43,7 @@ public class ResultScreen extends Activity{
         lv.setTextFilterEnabled(true);         
         lv.setAdapter(new ArrayAdapter<Parcelable>(this, R.layout.list_item, rest));
         
+<<<<<<< HEAD
         lv.setOnItemClickListener(new OnItemClickListener() {
   			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,long id) {
@@ -48,6 +53,18 @@ public class ResultScreen extends Activity{
   	    		intent.putExtra("Restaurant", lv.getItemAtPosition(position).toString());
   	    		startActivity(intent);
   		}});
+=======
+        lv.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startActivity(new Intent(ResultScreen.this, TextActivity.class));
+				
+			}
+        	
+        	
+        });
+>>>>>>> fe82a373f02f508e2d6a9bcd1a7d6b4d7125c179
 	}
 
 	public Restaurant[] getTaggedLocations(){
