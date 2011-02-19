@@ -7,8 +7,12 @@ import edu.msoe.SocialPlate.R;
 import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.View;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -35,7 +39,15 @@ public class ResultScreen extends Activity{
         lv.setTextFilterEnabled(true);         
         lv.setAdapter(new ArrayAdapter<Parcelable>(this, R.layout.list_item, rest));
         
-        
+        lv.setOnItemClickListener(new OnItemClickListener() {
+  			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,long id) {
+  				Intent intent = new Intent();
+  	    		intent.setClassName(getResources().getString(R.string.package_structure),
+  	    				getResources().getString(R.string.text_screen_fqn));
+  	    		intent.putExtra("Restaurant", lv.getItemAtPosition(position).toString());
+  	    		startActivity(intent);
+  		}});
 	}
 
 	public Restaurant[] getTaggedLocations(){

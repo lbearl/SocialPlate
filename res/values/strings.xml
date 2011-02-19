@@ -9,6 +9,7 @@
     <string name="search_screen_fqn">edu.msoe.SocialPlate.activities.SearchScreen</string>
     <string name="result_screen_fqn">edu.msoe.SocialPlate.activities.ResultScreen</string>
     <string name="directions_screen_fqn">edu.msoe.SocialPlate.activities.MapDirections</string>
+    <string name="text_screen_fqn">edu.msoe.SocialPlate.activities.TextActivity</string>
     <string name="home_screen">HomeScreen</string>
     <string name="search_screen">SearchScreen</string>
     <string name="social_plate">SocialPlate</string>

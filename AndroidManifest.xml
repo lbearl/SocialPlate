@@ -28,6 +28,8 @@
         		  android:label="Map Options">
         </activity>
         
+        
+        
 		<service android:enabled="true" android:name=".services.RetrieveLocationService" />
 		
     </application>
