@@ -43,7 +43,11 @@ public class ResultScreen extends Activity{
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				startActivity(new Intent(ResultScreen.this, TextActivity.class));
+				Intent intent = new Intent();
+  	    		intent.setClassName(getResources().getString(R.string.package_structure),
+  	    				getResources().getString(R.string.text_screen_fqn));
+  	    		intent.putExtra("Restaurant", lv.getItemAtPosition(position).toString());
+				startActivity(intent);
 				
 			}
         	
