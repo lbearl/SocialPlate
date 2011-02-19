@@ -55,8 +55,10 @@ public final class R {
         public static final int vietnam=0x7f020029;
     }
     public static final class id {
+        public static final int btnContacts=0x7f060027;
+        public static final int btnSendSMS=0x7f060029;
         public static final int bus=0x7f060007;
-        public static final int cheap=0x7f060026;
+        public static final int cheap=0x7f06002a;
         public static final int clearallbutton=0x7f06001c;
         public static final int costbutton=0x7f060019;
         public static final int dbox=0x7f060010;
@@ -66,7 +68,7 @@ public final class R {
         public static final int dlabel=0x7f06000f;
         public static final int driving=0x7f060006;
         public static final int ethnicitybutton=0x7f060018;
-        public static final int expensive=0x7f060028;
+        public static final int expensive=0x7f06002c;
         public static final int geoTagB=0x7f060015;
         public static final int geotagbutton=0x7f06001b;
         public static final int getLocation=0x7f060014;
@@ -78,7 +80,7 @@ public final class R {
         public static final int mainlist=0x7f06001f;
         public static final int mapbutton=0x7f060017;
         public static final int mealbutton=0x7f06001a;
-        public static final int moderate=0x7f060027;
+        public static final int moderate=0x7f06002b;
         public static final int ok=0x7f060008;
         public static final int platebutton=0x7f06001e;
         public static final int priceButton=0x7f060011;
@@ -93,16 +95,18 @@ public final class R {
         public static final int splash=0x7f060025;
         public static final int splashname=0x7f060024;
         public static final int tagButton=0x7f060013;
-        public static final int typeBuffet=0x7f060030;
-        public static final int typeBurger=0x7f060029;
+        public static final int txtMessage=0x7f060028;
+        public static final int txtPhoneNo=0x7f060026;
+        public static final int typeBuffet=0x7f060034;
+        public static final int typeBurger=0x7f06002d;
         public static final int typeButton=0x7f060012;
-        public static final int typeChicken=0x7f06002a;
-        public static final int typeDonuts=0x7f06002f;
-        public static final int typeIceCream=0x7f06002e;
-        public static final int typePizza=0x7f06002b;
-        public static final int typeSeafood=0x7f06002d;
-        public static final int typeTip=0x7f060031;
-        public static final int typeVegetarian=0x7f06002c;
+        public static final int typeChicken=0x7f06002e;
+        public static final int typeDonuts=0x7f060033;
+        public static final int typeIceCream=0x7f060032;
+        public static final int typePizza=0x7f06002f;
+        public static final int typeSeafood=0x7f060031;
+        public static final int typeTip=0x7f060035;
+        public static final int typeVegetarian=0x7f060030;
         public static final int walking=0x7f060005;
         public static final int within=0x7f060000;
     }
@@ -116,6 +120,7 @@ public final class R {
         public static final int resultscreen=0x7f030006;
         public static final int searchscreen=0x7f030007;
         public static final int splashscreen=0x7f030008;
+        public static final int textlayout=0x7f030009;
     }
     public static final class menu {
         public static final int pricecontext=0x7f050000;
