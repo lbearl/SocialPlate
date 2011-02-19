@@ -58,7 +58,7 @@ public class MapDirections extends Activity implements OnClickListener, OnChecke
 		Intent intent = new Intent();
 		intent.setClassName(getResources().getString(R.string.package_structure),
 				getResources().getString(R.string.home_screen_fqn));
-		finish();
+	//	finish();
 		startActivity(intent);
 		
 	}

@@ -32,14 +32,10 @@ public class SocialPlate extends Activity implements OnClickListener {
 	ImageButton SEARCH;
 	ImageButton PLATE;
 	
-	final int MAP_ID = 1;
-	final int ETHNICITY_ID = 2;
-	final int COST_ID = 3;
-	final int MEAL_ID = 4;
-	final int GEOTAG_ID = 5;
-	final int CLEARALL_ID = 6;
-	final int SEARCH_ID = 7;
-	final int PLATE_ID = 8;
+	static int MAP_ID = R.drawable.map;
+	static int ETHNICITY_ID = R.drawable.earth;
+	static int COST_ID = R.drawable.cost;
+	static int MEAL_ID = R.drawable.meal;
 	
 	final String[] ETHNICITY_LIST = {"American","Brazilian","Chinese","Colombian","Ethiopian","French","German","Greek",
 									"Indian","Israeli","Italian","Jamaican","Japanese","Korean","Mexican","Pakistani",
@@ -56,28 +52,28 @@ public class SocialPlate extends Activity implements OnClickListener {
         setContentView(R.layout.main);
         
         MAP = (ImageButton) findViewById(R.id.mapbutton);
-        MAP.setImageResource(R.drawable.map);
+        MAP.setImageResource(MAP_ID);
         MAP.setAdjustViewBounds(true);
         MAP.setMaxHeight(80);
         MAP.setMaxWidth(80);
         MAP.setOnClickListener(this);
         
         ETHNICITY = (ImageButton) findViewById(R.id.ethnicitybutton);
-        ETHNICITY.setImageResource(R.drawable.earth);
+        ETHNICITY.setImageResource(ETHNICITY_ID);
         ETHNICITY.setAdjustViewBounds(true);
         ETHNICITY.setMaxHeight(80);
         ETHNICITY.setMaxWidth(80);
         ETHNICITY.setOnClickListener(this);
         
         COST = (ImageButton) findViewById(R.id.costbutton);
-        COST.setImageResource(R.drawable.cost);
+        COST.setImageResource(COST_ID);
         COST.setAdjustViewBounds(true);
         COST.setMaxHeight(80);
         COST.setMaxWidth(80);
         COST.setOnClickListener(this);
         
         MEAL = (ImageButton) findViewById(R.id.mealbutton);
-        MEAL.setImageResource(R.drawable.meal);
+        MEAL.setImageResource(MEAL_ID);
         MEAL.setAdjustViewBounds(true);
         MEAL.setMaxHeight(80);
         MEAL.setMaxWidth(80);
@@ -209,102 +205,152 @@ public class SocialPlate extends Activity implements OnClickListener {
     public void setEthnicity(int index){
 		switch(index){
 		case 0:
+			ETHNICITY_ID = R.drawable.america;
 			ETHNICITY.setImageResource(R.drawable.america);
 	    	break;
 		case 1:
+			ETHNICITY_ID = R.drawable.brazil;
 			ETHNICITY.setImageResource(R.drawable.brazil);
 	    	break;
 		case 2:
+			ETHNICITY_ID = R.drawable.china;
 			ETHNICITY.setImageResource(R.drawable.china);
 	    	break;
 		case 3:
+			ETHNICITY_ID = R.drawable.colombia;
 			ETHNICITY.setImageResource(R.drawable.colombia);
 	    	break;
 		case 4:
+			ETHNICITY_ID = R.drawable.ethiopia;
 			ETHNICITY.setImageResource(R.drawable.ethiopia);
 	    	break;
 		case 5:
+			ETHNICITY_ID = R.drawable.france;
 			ETHNICITY.setImageResource(R.drawable.france);
 	    	break;
 		case 6:
+			ETHNICITY_ID = R.drawable.germany;
 			ETHNICITY.setImageResource(R.drawable.germany);
 	    	break;
 		case 7:
+			ETHNICITY_ID = R.drawable.greece;
 			ETHNICITY.setImageResource(R.drawable.greece);
 	    	break;
 		case 8:
+			ETHNICITY_ID = R.drawable.india;
 			ETHNICITY.setImageResource(R.drawable.india);
 	    	break;
 		case 9:
+			ETHNICITY_ID = R.drawable.israel;
 			ETHNICITY.setImageResource(R.drawable.israel);
 	    	break;
 		case 10:
+			ETHNICITY_ID = R.drawable.italy;
 			ETHNICITY.setImageResource(R.drawable.italy);
 	    	break;
 		case 11:
+			ETHNICITY_ID = R.drawable.jamaica;
 			ETHNICITY.setImageResource(R.drawable.jamaica);
 	    	break;
 		case 12:
+			ETHNICITY_ID = R.drawable.japan;
 			ETHNICITY.setImageResource(R.drawable.japan);
 	    	break;
 		case 13:
+			ETHNICITY_ID = R.drawable.korea;
 			ETHNICITY.setImageResource(R.drawable.korea);
 	    	break;
 		case 14:
+			ETHNICITY_ID = R.drawable.mexico;
 			ETHNICITY.setImageResource(R.drawable.mexico);
 	    	break;
 		case 15:
+			ETHNICITY_ID = R.drawable.pakistan;
 			ETHNICITY.setImageResource(R.drawable.pakistan);
 	    	break;
 		case 16:
+			ETHNICITY_ID = R.drawable.philippines;
 			ETHNICITY.setImageResource(R.drawable.philippines);
 	    	break;
 		case 17:
+			ETHNICITY_ID = R.drawable.poland;
 			ETHNICITY.setImageResource(R.drawable.poland);
 	    	break;
 		case 18:
+			ETHNICITY_ID = R.drawable.puertorico;
 			ETHNICITY.setImageResource(R.drawable.puertorico);
 	    	break;
 		case 19:
+			ETHNICITY_ID = R.drawable.spain;
 			ETHNICITY.setImageResource(R.drawable.spain);
 	    	break;
 		case 20:
+			ETHNICITY_ID = R.drawable.vietnam;
 			ETHNICITY.setImageResource(R.drawable.vietnam);
 	    	break;
 	    default:
-	    	ETHNICITY.setImageResource(R.drawable.earth);
+	    	ETHNICITY_ID = R.drawable.earth;
+			ETHNICITY.setImageResource(R.drawable.earth);
 		}
 	}
     
     public void setCost(int index){
 		switch(index){
 		case 0:
+			COST_ID = R.drawable.cost1;
 			COST.setImageResource(R.drawable.cost1);
 	    	break;
 		case 1:
+			COST_ID = R.drawable.cost2;
 			COST.setImageResource(R.drawable.cost2);
 	    	break;
 		case 2:
+			COST_ID = R.drawable.cost3;
 			COST.setImageResource(R.drawable.cost3);
 	    	break;
 		default:
+			COST_ID = R.drawable.cost;
 	    	COST.setImageResource(R.drawable.cost);
 		}
 	}
     
     public void setMeal(int index){
     	switch(index){
-    	case 6:
-    		MEAL.setImageResource(R.drawable.donut);
+    	case 0:
+    		MEAL_ID = R.drawable.burger;
+    		MEAL.setImageResource(R.drawable.burger);
     		break;
     	case 1:
+    		MEAL_ID = R.drawable.chicken;
     		MEAL.setImageResource(R.drawable.chicken);
     		break;
     	case 2:
+    		MEAL_ID = R.drawable.pizza;
     		MEAL.setImageResource(R.drawable.pizza);
     		break;
+    	case 3:
+    		MEAL_ID = R.drawable.vegetarian;
+    		MEAL.setImageResource(R.drawable.vegetarian);
+    		break;
+    	case 4:
+    		MEAL_ID = R.drawable.seafood;
+    		MEAL.setImageResource(R.drawable.seafood);
+    		break;
     	case 5:
+    		MEAL_ID = R.drawable.icecream;
     		MEAL.setImageResource(R.drawable.icecream);
+    		break;
+    	case 6:
+    		MEAL_ID = R.drawable.donut;
+    		MEAL.setImageResource(R.drawable.donut);
+    		break;
+    	case 7:
+    		MEAL_ID = R.drawable.buffet;
+    		MEAL.setImageResource(R.drawable.buffet);
+    		break;
+    	default:
+    		MEAL_ID = R.drawable.meal;
+    		MEAL.setImageResource(R.drawable.meal);
     		break;
     	}
     }
