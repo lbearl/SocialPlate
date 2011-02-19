@@ -1,0 +1,77 @@
+package edu.msoe.SocialPlate.activities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.msoe.SocialPlate.R;
+import edu.msoe.SocialPlate.database.DBAdapter;
+import edu.msoe.SocialPlate.helperobjects.Restaurant;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class ResultScreen extends Activity{
+
+	private ListView lv;
+	/**
+	 * This class will contain the list view that displays the results
+	 * from the Google Places API Search Request
+	 * 
+	 * It will make a request using the GooglePlaces class. And it'll receive 
+	 * the response from the class properly formatted to be displayed. 
+	 * 
+	 */
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.resultscreen);
+		
+		Bundle bundle = getIntent().getExtras();
+		
+		Parcelable[] rest = bundle.getParcelableArray("Restaurants");
+		
+        lv = (ListView)findViewById(R.id.mainlist);
+        lv.setTextFilterEnabled(true);         
+        lv.setAdapter(new ArrayAdapter<Parcelable>(this, R.layout.list_item, rest));
+        
+        lv.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startActivity(new Intent(ResultScreen.this, TextActivity.class));
+				
+			}
+        	
+        	
+        });
+	}
+
+	public Restaurant[] getTaggedLocations(){
+			
+		DBAdapter dba = new DBAdapter(getApplicationContext());
+		
+		ArrayList<String> rName = new ArrayList<String>();		
+		ArrayList<String> rPrice = new ArrayList<String>();
+		ArrayList<String> rType = new ArrayList<String>();
+		ArrayList<String> rEthnicity = new ArrayList<String>();
+		ArrayList<String> nName = new ArrayList<String>();
+		nName.add("BK");
+		ArrayList<String> nPrice = new ArrayList<String>();
+		ArrayList<String> nType = new ArrayList<String>();
+		ArrayList<String> nEthnicity = new ArrayList<String>();
+		
+		Restaurant[] restaurants = dba.queryRestaurants(rName, rPrice, rType, rEthnicity,
+				nName, nPrice, nType, nEthnicity,
+				DBAdapter.DISABLE_LOCATION_SEARCH, DBAdapter.DISABLE_LOCATION_SEARCH, DBAdapter.DISABLE_LOCATION_SEARCH
+				);
+		dba.closeDB();		
+						
+		return restaurants;
+	}
+	
+}
