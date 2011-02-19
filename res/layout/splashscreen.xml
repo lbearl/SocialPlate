@@ -4,27 +4,15 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:background="#ffffff">
-  
 
-
-  <TextView
-  	android:id="@+id/splashname"
-  	android:layout_width="wrap_content"
-  	android:layout_height="wrap_content"
-  	android:layout_centerHorizontal="true"
-  	android:textColor="#000000"
-  	android:textSize="30sp"  	
-  	android:text="Social Plate">  
-  </TextView>
-  
   
   
   <ImageView
   	android:id="@+id/splash"
+  	android:src="@drawable/splash"
   	android:adjustViewBounds="true"
-  	android:layout_below="@id/splashname"
-  	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
 	android:layout_centerInParent="true"
 	  	/>
   	
