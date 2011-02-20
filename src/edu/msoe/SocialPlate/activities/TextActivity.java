@@ -47,6 +47,8 @@ public class TextActivity extends Activity {
         txtPhoneNo = (EditText) findViewById(R.id.txtPhoneNo);
         txtMessage = (EditText) findViewById(R.id.txtMessage);
         
+        txtMessage.setText("Hi, I'm eating at " + this.getIntent().getStringExtra("Restaurant") + ". Meet me there!");
+        
         //Adds click listener
         btnContacts.setOnClickListener(new OnClickListener(){
 
