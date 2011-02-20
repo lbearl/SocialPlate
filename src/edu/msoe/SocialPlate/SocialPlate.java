@@ -7,11 +7,14 @@ import edu.msoe.SocialPlate.activities.ResultScreen;
 import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 import edu.msoe.SocialPlate.helperobjects.UserChoices;
+import edu.msoe.SocialPlate.http.WebQuery;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -182,10 +185,21 @@ public class SocialPlate extends Activity implements OnClickListener {
     	}
     	else if(view == PLATE){
     		
-    		DBAdapter dba = new DBAdapter(getApplicationContext());
+    		Restaurant[] restaurant = null;
     		
-    		Restaurant[] restaurant = dba.queryRestaurant();
-    		dba.closeDB();
+    		
+    		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);    		
+    		int d = tm.getDataState();
+    		
+    		if(d==tm.DATA_CONNECTED || d==tm.DATA_CONNECTING){
+    			restaurant = WebQuery.queryWeb(getApplicationContext());
+    		}else{
+    			DBAdapter dba = new DBAdapter(getApplicationContext());
+        		restaurant = dba.queryRestaurant();
+        		dba.closeDB();
+    		}
+    		
+
     		
     		Toast.makeText(this, "Choosing your restaurant", Toast.LENGTH_SHORT).show();
     		

@@ -3,6 +3,8 @@ package edu.msoe.SocialPlate.activities;
 import edu.msoe.SocialPlate.R;
 import edu.msoe.SocialPlate.RetrieverOfLocations;
 import edu.msoe.SocialPlate.database.DBAdapter;
+import edu.msoe.SocialPlate.helperobjects.Restaurant;
+import edu.msoe.SocialPlate.http.ServerConnect;
 import edu.msoe.SocialPlate.tasks.GetLocationTask;
 import android.app.Activity;
 import android.os.Bundle;
@@ -43,9 +45,21 @@ public class GeoTag extends Activity implements OnClickListener{
 		b = (Button)this.findViewById(R.id.typeButton);
 		b.setOnClickListener(this);
 		registerForContextMenu(b);
+		b = (Button)this.findViewById(R.id.ethnicityButton);
+		b.setOnClickListener(this);
+		registerForContextMenu(b);
+		b = (Button)this.findViewById(R.id.locationButton);
+		b.setOnClickListener(this);
 		
+		updateLocationView();
+	}
+	
+	/**
+	 * Update the views that display geo coordinates
+	 */
+	public void updateLocationView(){
 		((TextView)this.findViewById(R.id.latnum)).setText(RetrieverOfLocations.getInstance(getApplicationContext()).latitude+"");
-		((TextView)this.findViewById(R.id.lngnum)).setText(RetrieverOfLocations.getInstance(getApplicationContext()).longitude+"");		
+		((TextView)this.findViewById(R.id.lngnum)).setText(RetrieverOfLocations.getInstance(getApplicationContext()).longitude+"");
 	}
 	
 	/**
@@ -61,6 +75,9 @@ public class GeoTag extends Activity implements OnClickListener{
 		}else if(v.getId()==R.id.typeButton){
 			menu.setHeaderTitle("Food Type");
 			inflater.inflate(R.menu.typecontext, menu);
+		}else if(v.getId()==R.id.ethnicityButton){
+			menu.setHeaderTitle("Ethnicity Type");
+			inflater.inflate(R.menu.ethnicitycontext, menu);
 		}
 	}
 	
@@ -77,6 +94,8 @@ public class GeoTag extends Activity implements OnClickListener{
 			b.setText(getResources().getString(R.string.price_range)+ ": " + item.getTitle().toString());
 		}else if(id==R.id.typeButton){
 			b.setText(getResources().getString(R.string.food_type) + ": " + item.getTitle().toString());
+		}else if(id==R.id.ethnicityButton){
+			b.setText(getResources().getString(R.string.ethnicity_type) + ": " + item.getTitle().toString());
 		}
 
 		return true;
@@ -96,10 +115,22 @@ public class GeoTag extends Activity implements OnClickListener{
 			this.openContextMenu(view);			
 		}else if(id == R.id.typeButton){			
 			view.showContextMenu();
-		}else if(view.getId()==R.id.tagButton){		
-			handleTagButton();		
-			
+		}else if(id == R.id.ethnicityButton){
+			view.showContextMenu();		
+		}else if(view.getId()==R.id.tagButton){
+			handleTagButton();					
+		}else if(id == R.id.locationButton){
+			handleLocationUpdate();
 		}
+	}
+	
+	/**
+	 * Update the location for the user
+	 */
+	public void handleLocationUpdate(){
+		GetLocationTask gt = new GetLocationTask(GeoTag.this, RetrieverOfLocations.getInstance(getApplicationContext()));
+		gt.execute();
+		updateLocationView();
 	}
 	
 	
@@ -119,42 +150,75 @@ public class GeoTag extends Activity implements OnClickListener{
 		TextView lngNum = (TextView)this.findViewById(R.id.lngnum);
 		EditText description = (EditText)this.findViewById(R.id.dbox);
 		String price = ((Button)this.findViewById(R.id.priceButton)).getText().toString();
-		price = price.substring(getResources().getString(R.string.price_range).length()+2, price.length());
+		if(!price.equals(getResources().getString(R.string.price_range))){
+			price = price.substring(getResources().getString(R.string.price_range).length()+2, price.length());
+		}	
 		String type = ((Button)this.findViewById(R.id.typeButton)).getText().toString();
-		type = type.substring(getResources().getString(R.string.food_type).length()+2, type.length());
+		if(!type.equals(getResources().getString(R.string.food_type))){
+			type = type.substring(getResources().getString(R.string.food_type).length()+2, type.length());
+		}	
+		String ethnicity = ((Button)this.findViewById(R.id.ethnicityButton)).getText().toString();
+		if(!ethnicity.equals(getResources().getString(R.string.ethnicity_type))){
+			ethnicity = ethnicity.substring(getResources().getString(R.string.ethnicity_type).length()+2, ethnicity.length());
+		}
 		
 		Log.i("Checkign insert price", "P"+price+"P");
 		Log.i("Checkign insert type", "P"+type+"P");
 		
-		String ethnicity = "";
+		
 		
 		if(!rname.getText().toString().equals("") && !latNum.getText().toString().equals("")
-			&& !lngNum.getText().toString().equals("") && !description.toString().equals("")){
+			&& !lngNum.getText().toString().equals("") && !description.toString().equals("")
+			&& !price.equals(getResources().getString(R.string.price_range)) 
+			&& !type.equals(getResources().getString(R.string.food_type)) 
+			&& !ethnicity.equals(getResources().getString(R.string.ethnicity_type))){
+		
+			Log.i("GeoTag tag handler", "making query to database");
+			
+			
+			Restaurant rest = new Restaurant(-1, rname.getText().toString(),
+					Double.parseDouble(latNum.getText().toString()),
+					Double.parseDouble(lngNum.getText().toString()),
+					description.getText().toString(), price, type, ethnicity);
+			
+			try {
+				ServerConnect.getInstance().sendToServer(getApplicationContext(), rest.toJSON());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			dba.insert(rname.getText().toString(), Double.parseDouble(latNum.getText().toString()), 
 					Double.parseDouble(lngNum.getText().toString()), description.getText().toString(), price,
 					type, ethnicity);
 			dba.closeDB();
+			Toast.makeText(getApplicationContext(), "Restaurant Tagged!", Toast.LENGTH_SHORT).show();
 		}
 		
 
 		
 		String errorMessage = "The field(s) (";
-		String errorFields = "";
+		StringBuilder errorFields = new StringBuilder();
+		errorFields.append("");
 		
 		if(rname.getText().toString().equals("")){
-			errorFields += "Restuarant Name,";
-		}if(latNum.getText().toString().equals("")){
-			errorFields += "Latitude,";
-		}if(lngNum.getText().toString().equals("")){
-			errorFields += "Longitude,";
+			errorFields.append("Restuarant Name,");
+		}if(latNum.getText().toString().equals(DBAdapter.DISABLE_LOCATION_SEARCH+"")){
+			errorFields.append("Latitude,");
+		}if(lngNum.getText().toString().equals(DBAdapter.DISABLE_LOCATION_SEARCH+"")){
+			errorFields.append("Longitude,");
 		}if(description.getText().toString().equals("")){
-			errorFields += "Description";
+			errorFields.append("Description,");
+		}if(price.equals(getResources().getString(R.string.price_range))){
+			errorFields.append("Price,");
+		}if(type.equals(getResources().getString(R.string.food_type))){
+			errorFields.append("Type,");
+		}if(ethnicity.equals(getResources().getString(R.string.ethnicity_type))){
+			errorFields.append("Ethnicity,");
 		}
 		
-		errorMessage = errorMessage + errorFields + ") should not be empty.";
+		errorMessage = errorMessage + errorFields.toString() + ") should not be empty.";
 		
-		if(!errorFields.equals("")){
+		if(!errorFields.toString().equals("")){
 			Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
 		}
 		
