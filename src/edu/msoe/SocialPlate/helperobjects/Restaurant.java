@@ -2,6 +2,11 @@ package edu.msoe.SocialPlate.helperobjects;
 
 import java.text.DecimalFormat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.msoe.SocialPlate.database.DBAdapter;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -16,6 +21,8 @@ public class Restaurant implements Parcelable{
 	private String priceRange;
 	private String foodType;
 	private String ethnicity;
+	
+	private static final int none = -1000;
 	
 	/**
 	 * Default Constructor
@@ -38,9 +45,10 @@ public class Restaurant implements Parcelable{
 		this.priceRange = priceRange;
 		this.foodType = foodType;		
 		this.ethnicity = ethnicity;
-		this.distance = -1;
+		this.distance = none;
 	}
 
+	
 	/**
 	 * Parcelable constructor
 	 * @param in
@@ -113,17 +121,23 @@ public class Restaurant implements Parcelable{
 		this.distance = distance;
 	}
 
+	/**
+	 * Overridden toString method
+	 */
 	public String toString(){		
 		DecimalFormat dist = new DecimalFormat("###.###");		
 		String ret = "";		
-		if(distance==-1){
-			ret = name+" "+description+" "+priceRange+" "+foodType+" "+ethnicity; 
+		if(distance==none){
+			ret = name+" \""+description+"\" "+priceRange+" "+foodType+" "+ethnicity; 
 		}else{
-			ret = name+" "+description+" "+priceRange+" "+foodType+" "+ethnicity+" Distance "+ dist.format(distance) + " km";
+			ret = name+" \""+description+"\" "+priceRange+" "+foodType+" "+ethnicity+" Distance "+ dist.format(distance) + " km";
 		}		
 		return ret;  
 	}
 
+	/**
+	 * Involved in making this object class have the ability to be stuffed in a bundle
+	 */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Restaurant createFromParcel(Parcel in) {
             return new Restaurant(in);
@@ -165,5 +179,22 @@ public class Restaurant implements Parcelable{
 		foodType = in.readString();	
 		ethnicity = in.readString();
 	}
+	
+	public JSONObject toJSON(){
+		JSONObject j = new JSONObject();
+		try {
+			j.put("restaurant_name", name);
+			j.put("latitude", latitude);
+			j.put("longitude", longitude);
+			j.put("description", description);
+			j.put("cost", priceRange);
+			j.put("meal", foodType);
+			j.put("ethnicity", ethnicity);			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return j;		
+	}
 
+	
 }

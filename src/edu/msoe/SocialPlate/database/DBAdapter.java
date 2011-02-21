@@ -253,28 +253,29 @@ public class DBAdapter {
 		
 		masterList.toArray(selectionArgs);
 		Log.i("DBAdapter masterList size", masterList.size()+"");
-		Log.i("DBAdapter query parameter", masterList.get(0));
+	//	Log.i("DBAdapter query parameter", masterList.get(0));
 		Log.i("DBAdapter query string", where.toString());
-		Log.i("DBAdapter SELECTION string", selectionArgs.length+"  " + selectionArgs[0]);
+	//	Log.i("DBAdapter SELECTION string", selectionArgs.length+"  " + selectionArgs[0]);
 		Cursor cursor = this.db.query(TABLE_NAME, 
 									new String[]{"id","price_name","latitude","longitude","description","restaurant_name","f_type","ethnicity"},
 									where.toString(),
 									selectionArgs, null, null, null);
 		Log.i("DBAdapter DB Size", countRestaurants()+"");
 		Log.i("DBAdapter actually query", cursor.getCount()+"");		
-		Restaurant[] masterRestaurantList = new Restaurant[cursor.getCount()];
+		ArrayList<Restaurant> masterRestaurantList = new ArrayList<Restaurant>();
 		Restaurant tempRestaurant = null;
 		int index = 0;
 		while(cursor.moveToNext()){			
 			tempRestaurant = new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getDouble(2),
 					cursor.getDouble(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));			 
 			if(queryLocation(tempRestaurant.getLatitude(), tempRestaurant.getLongitude(), userLat, userLng, dist, tempRestaurant)){
-				masterRestaurantList[index] = tempRestaurant;
-				index++;
+				masterRestaurantList.add(tempRestaurant);				
 			}				 
 		}	
-		cursor.close();
-		return masterRestaurantList;
+		if(cursor!=null && !cursor.isClosed()){
+			cursor.close();
+		}	
+		return masterRestaurantList.toArray(new Restaurant[masterRestaurantList.size()]);
 	}
 	
 	/**

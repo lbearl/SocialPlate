@@ -1,5 +1,6 @@
 package edu.msoe.SocialPlate;
 
+import edu.msoe.SocialPlate.database.DBAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -30,8 +31,8 @@ public class RetrieverOfLocations implements LocationListener{
 	 */
 	private RetrieverOfLocations(){
 		waitingForLocationChange = true;
-		latitude = 0.0;
-		longitude = 0.0;
+		latitude = DBAdapter.DISABLE_LOCATION_SEARCH;
+		longitude = DBAdapter.DISABLE_LOCATION_SEARCH;
 		bearing = 0.0;		
 		accuracy = 0.0;
 		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);

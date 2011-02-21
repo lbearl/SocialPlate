@@ -16,5 +16,8 @@
     <string name="splash_screen">SplashScreen</string>
     <string name="price_range">Price Range</string>
     <string name="food_type">Type of Food</string>
+    <string name="ethnicity_type">Type of Ethnicity</string>
+    <string name="server_location">http://155.92.41.252:8000/restaurants/</string>
+    <string name="location">Update Location</string>
 </resources>
 

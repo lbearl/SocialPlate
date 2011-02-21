@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    	<item android:id="@+id/American"
+  			android:title="American" />   			
+  		<item android:id="@+id/Brazilian"
+  			android:title="Brazilian" />  			
+  		<item android:id="@+id/Chinese"
+  			android:title="Chinese" />  			
+  		<item android:id="@+id/Colombian"
+  			android:title="Colombian" />  			
+  		<item android:id="@+id/Ethiopian"
+  			android:title="Ethiopian" />  			
+  		<item android:id="@+id/French"
+  			android:title="French" />  			
+  		<item android:id="@+id/German"
+  			android:title="German" />
+  		<item android:id="@+id/Greek"
+  			android:title="Greek" />
+  		<item android:id="@+id/Indian"
+  			android:title="Indian" />
+  		<item android:id="@+id/Israeli"
+  			android:title="Israeli" />
+  		<item android:id="@+id/Italian"
+  			android:title="Italian" />
+  		<item android:id="@+id/Jamaican"
+  			android:title="Jamaican" />
+  		<item android:id="@+id/Japanese"
+  			android:title="Japanese" />
+  		<item android:id="@+id/Korean"
+  			android:title="Korean" />
+  		<item android:id="@+id/Mexican"
+  			android:title="Mexican" />
+  		<item android:id="@+id/Pakistani"
+  			android:title="Pakistani" />
+  		<item android:id="@+id/Filippino"
+  			android:title="Filippino" />
+  		<item android:id="@+id/Polish"
+  			android:title="Polish" />
+  		<item android:id="@+id/Puerto_Rican"
+  			android:title="Puerto Rican" />
+  		<item android:id="@+id/Spanish"
+  			android:title="Spanish" />
+  		<item android:id="@+id/Vietnamese"
+  			android:title="Vietnamese" /> 
+</menu>
