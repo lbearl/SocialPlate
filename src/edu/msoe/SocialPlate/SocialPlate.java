@@ -32,7 +32,6 @@ public class SocialPlate extends Activity implements OnClickListener {
 	ImageButton MEAL;
 	ImageButton GEOTAG;
 	ImageButton CLEARALL;
-	ImageButton SEARCH;
 	ImageButton PLATE;
 	
 	static int MAP_ID = R.drawable.map;
@@ -45,7 +44,6 @@ public class SocialPlate extends Activity implements OnClickListener {
 									"Filippino","Polish","Puerto Rican","Spanish","Vietnamese"};
 	final String[] COST_LIST = {"Cheap","Moderate","Expensive"};
 	final String[] MEAL_LIST = {"Burger","Chicken","Pizza","Vegetarian","Seafood","Ice Cream", "Donuts","Buffet"};
-	final String[] DIRECTIONS_LIST = {"Walking","Driving","Bus"};
 	
 	
 	/** Called when the activity is first created. */
@@ -95,13 +93,6 @@ public class SocialPlate extends Activity implements OnClickListener {
         CLEARALL.setMaxHeight(80);
         CLEARALL.setMaxWidth(80);
         CLEARALL.setOnClickListener(this);
-        
-        SEARCH = (ImageButton) findViewById(R.id.searchbutton);
-        SEARCH.setImageResource(R.drawable.search);
-        SEARCH.setAdjustViewBounds(true);
-        SEARCH.setMaxHeight(80);
-        SEARCH.setMaxWidth(80);
-        SEARCH.setOnClickListener(this);
         
         PLATE = (ImageButton) findViewById(R.id.platebutton);
         PLATE.setImageResource(R.drawable.plate);
@@ -219,16 +210,9 @@ public class SocialPlate extends Activity implements OnClickListener {
     		bundle.putDoubleArray("latitudes", latitudes);
     		bundle.putDoubleArray("longitudes", longitudes);
     		
-    		/**
-    		 * Fuck yes
-    		 */
-    		
     		
     		intent.putExtras(bundle);
     		startActivity(intent);
-    	}
-    	else if(view == SEARCH){
-    		Toast.makeText(this, "Search started", Toast.LENGTH_SHORT).show();
     	}
     }
     

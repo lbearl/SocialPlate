@@ -17,10 +17,9 @@ import edu.msoe.SocialPlate.R;
 import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.UserChoices;
 
-public class MapDirections extends Activity implements OnClickListener, OnCheckedChangeListener{
+public class MapDirections extends Activity implements OnClickListener{
 	
 	EditText userInput; 
-	RadioGroup rGroup;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -29,19 +28,13 @@ public class MapDirections extends Activity implements OnClickListener, OnChecke
 		
 		userInput = (EditText) findViewById(R.id.input);
 		
-		rGroup = (RadioGroup) findViewById(R.id.directionsList);
-		rGroup.setOnCheckedChangeListener(this);
-		
 		
 		Button okButton = (Button) findViewById(R.id.ok);
 		okButton.setOnClickListener(this);
 		
 	}
 	
-	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		UserChoices.getInstance().setDirections(checkedId);
-	}
+
 	
 	public void onClick(View view){
 		double distance; 
