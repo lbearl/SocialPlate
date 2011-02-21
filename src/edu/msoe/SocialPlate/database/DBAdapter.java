@@ -1,6 +1,5 @@
 package edu.msoe.SocialPlate.database;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import edu.msoe.SocialPlate.RetrieverOfLocations;
-import edu.msoe.SocialPlate.RestfulProvider.RestClient;
 import edu.msoe.SocialPlate.helperobjects.DistanceCalculator;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 import edu.msoe.SocialPlate.helperobjects.UserChoices;
 import edu.msoe.SocialPlate.http.ServerConnect;
-
-import android.R.id;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
