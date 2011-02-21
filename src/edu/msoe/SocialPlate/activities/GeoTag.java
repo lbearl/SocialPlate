@@ -182,7 +182,7 @@ public class GeoTag extends Activity implements OnClickListener{
 					description.getText().toString(), price, type, ethnicity);
 			
 			try {
-				ServerConnect.getInstance().sendToServer(getApplicationContext(), rest.toJSON());
+			//	ServerConnect.getInstance().sendToServer(getApplicationContext(), rest.toJSON());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
