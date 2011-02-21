@@ -64,15 +64,7 @@
  		android:layout_marginRight="40dip"
  		android:layout_marginLeft="180dip"
   		/>
-  		 		
-<ImageButton 
-		android:id="@+id/searchbutton"
-		android:layout_width="300px"
-		android:layout_height="50px"
-		
-		android:layout_marginTop="380dip"
- 		android:layout_centerHorizontal="true"
- 		/>
+
  		
 <ImageButton 
 		android:id="@+id/platebutton"
@@ -80,7 +72,7 @@
 		android:layout_height="wrap_content"
 		android:background="@android:color/transparent"
 		android:scaleType="fitXY"
- 		android:layout_marginTop="270dip"
+ 		android:layout_marginTop="300dip"
  		android:layout_centerHorizontal="true"
  		/>
 </RelativeLayout>

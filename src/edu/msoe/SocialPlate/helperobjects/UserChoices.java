@@ -7,7 +7,6 @@ import edu.msoe.SocialPlate.database.DBAdapter;
  */
 public class UserChoices {
 
-	private int directions; //0:Walking, 1:Driving, 2:Bus
 	private String ethnicity;
 	private String cost;		
 	private String meal;
@@ -18,7 +17,6 @@ public class UserChoices {
 	private static UserChoices uc= null;
 	
 	private UserChoices(){
-		this.directions = -1;
 		this.ethnicity = null;
 		this.cost = null;
 		this.meal = null;
@@ -41,9 +39,7 @@ public class UserChoices {
 		return name;
 	}
 	
-	public int getDirections(){
-		return directions;
-	}
+	
 	
 	public String getEthnicity(){
 		return ethnicity;
@@ -65,9 +61,7 @@ public class UserChoices {
 		this.name = name;
 	}
 	
-	public void setDirections(int d){
-		this.directions = d;
-	}
+	
 	
 	public void setEthnicity(String e){
 		this.ethnicity = e;
@@ -86,7 +80,6 @@ public class UserChoices {
 	}
 	
 	public void clearAll(){
-		this.directions = -1;
 		this.ethnicity = null;
 		this.cost = null;
 		this.meal = null;
@@ -95,6 +88,6 @@ public class UserChoices {
 	}
 	
 	public String toString(){
-		return directions + " " + ethnicity + " " + cost + " " + meal;
+		return ethnicity + " " + cost + " " + meal;
 	}
 }

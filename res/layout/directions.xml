@@ -29,54 +29,8 @@
 	android:layout_marginLeft="260dip">
 	</TextView>
 
-<TextView android:id="@+id/directions"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="Directions?"
-	android:textSize="40sp"
-	android:layout_marginTop="130dip"
-	android:layout_gravity="left">
-	</TextView>
 	
-<RadioGroup android:id="@+id/directionsList"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_marginTop="190dip"
-	android:orientation="vertical">
-	
-<RadioButton android:id="@+id/walking"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="Walking"
-	android:checked="false"
-	android:layout_gravity="left"
-	android:layout_weight="0"
-	android:textSize="20sp"
-	android:textStyle="bold"
-	/>
 
-<RadioButton android:id="@+id/driving"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="Driving"
-	android:checked="false"
-	android:layout_gravity="left"
-	android:layout_weight="0"
-	android:textSize="20sp"
-	android:textStyle="bold"
-	/>
-	
-<RadioButton android:id="@+id/bus"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="Bus"
-	android:checked="false"
-	android:layout_gravity="left"
-	android:layout_weight="0"
-	android:textSize="20sp"
-	android:textStyle="bold"
-	/>
-</RadioGroup>
 
 <Button android:id="@+id/ok"
 	android:text="OK"

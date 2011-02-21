@@ -268,7 +268,7 @@ public class DBAdapter {
 		Log.i("DBAdapter query string", where.toString());
 	//	Log.i("DBAdapter SELECTION string", selectionArgs.length+"  " + selectionArgs[0]);
 		Cursor cursor = this.db.query(TABLE_NAME, 
-									new String[]{"id","price_name","latitude","longitude","description","restaurant_name","f_type","ethnicity"},
+									new String[]{"id","restaurant_name","latitude","longitude","description","price_name","f_type","ethnicity"},
 									where.toString(),
 									selectionArgs, null, null, null);
 		Log.i("DBAdapter DB Size", countRestaurants()+"");
