@@ -1,12 +1,18 @@
 package edu.msoe.SocialPlate.database;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import edu.msoe.SocialPlate.RetrieverOfLocations;
+import edu.msoe.SocialPlate.RestfulProvider.RestClient;
 import edu.msoe.SocialPlate.helperobjects.DistanceCalculator;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 import edu.msoe.SocialPlate.helperobjects.UserChoices;
+import edu.msoe.SocialPlate.http.ServerConnect;
 
 import android.R.id;
 import android.content.ContentValues;
@@ -143,7 +149,12 @@ public class DBAdapter {
 				userLat != DISABLE_LOCATION_SEARCH && userLng != DISABLE_LOCATION_SEARCH){
 			Log.i("DBAdapter", "Distance Included");
 			
-			restaurants = selectAll(userLat, userLng);			
+			try {
+				restaurants = selectAll(userLat, userLng);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}else{				
 		
 			Log.i("DBAdapter User Parameters", name+"");
@@ -360,8 +371,9 @@ public class DBAdapter {
 	/**
 	 * Select all the items and return them
 	 * @return
+	 * @throws JSONException 
 	 */
-	public Restaurant[] selectAll(double userLat, double userLng){			
+	public Restaurant[] selectAll(double userLat, double userLng) throws JSONException{			
 		Cursor cursor = this.db.query(TABLE_NAME, new String[]{"id", "restaurant_name	", "latitude", 
 				"longitude", "description", "price_name", "f_type", "ethnicity"},
 				null, null, null, null, "id desc");
@@ -389,8 +401,24 @@ public class DBAdapter {
 			r=restaurants[i];
 			queryLocation(r.getLatitude(), r.getLongitude(), userLat, userLng, 0, r);
 		}			
+        
+        ServerConnect sc = ServerConnect.getInstance();
+        JSONArray jar = new JSONArray(sc.getRestaurants());
+        Log.d("SP", sc.getRestaurants());
 		
-		return restaurants;
+		Restaurant[] myrests = new Restaurant[jar.length()+5];
+		for(int i =0; i< jar.length(); i++){
+			myrests[i].setDescription(jar.getJSONObject(i).getString("description"));
+			myrests[i].setEthnicity(jar.getJSONObject(i).getString("ethnicity"));
+			myrests[i].setFoodType(jar.getJSONObject(i).getString("f_type"));
+			myrests[i].setLatitude(jar.getJSONObject(i).getInt("latitude"));
+			myrests[i].setLongitude(jar.getJSONObject(i).getInt("longitude"));
+			myrests[i].setName(jar.getJSONObject(i).getString("r_name"));
+			myrests[i].setPriceRange(jar.getJSONObject(i).getString("price_name"));
+			
+		}
+		
+		return myrests;
 	}
 	
 	/**
@@ -420,6 +448,9 @@ public class DBAdapter {
 			cursor.close();
 		}
 		Log.i("select all", "size of restaurants " + restaurants.length);
+        
+        ServerConnect sc = ServerConnect.getInstance();
+        Log.d("SP", sc.getRestaurants());
 		return restaurants;
 	}
 	

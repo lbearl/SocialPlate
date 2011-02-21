@@ -193,7 +193,43 @@ public class Restaurant implements Parcelable{
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
 		return j;		
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public void setPriceRange(String priceRange) {
+		this.priceRange = priceRange;
+	}
+
+
+	public void setFoodType(String foodType) {
+		this.foodType = foodType;
+	}
+
+
+	public void setEthnicity(String ethnicity) {
+		this.ethnicity = ethnicity;
 	}
 
 	

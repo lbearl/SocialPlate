@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="/home/michael/workspace/SeniorDesign/Water Warriors Servlet/WebContent/WEB-INF/lib/json.jar"/>
+	<classpathentry kind="lib" path="json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

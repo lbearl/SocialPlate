@@ -59,6 +59,8 @@ public class WebQuery {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			
+		
+		
 		return restaurants.toArray(new Restaurant[restaurants.size()]);
 	}
 	

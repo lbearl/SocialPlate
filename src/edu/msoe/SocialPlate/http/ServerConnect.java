@@ -1,17 +1,23 @@
 package edu.msoe.SocialPlate.http;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -27,6 +33,7 @@ import android.util.Log;
 
 public class ServerConnect {
 
+	String result = "";
 	private CookieStore session;
 	
 	
@@ -117,5 +124,23 @@ public class ServerConnect {
 		return array;
 	}
 	
-	
+	public String getRestaurants(){
+		HttpClient htclient = new DefaultHttpClient();
+		HttpGet request = new HttpGet("http://192.168.1.145/restaurants/"); //"http://artemistech.dyndns.org/restaurants/");
+		request.addHeader("Accept", "application/json");
+		ResponseHandler<String> handler = new BasicResponseHandler();
+		try{
+			result = htclient.execute(request, handler);
+		}catch (ClientProtocolException cpe){
+			Log.e("SP", "ClientProtocolException in ServerConnect.getRestaurants");
+		}catch(IOException ioe){
+			Log.e("SP", "IOException in ServerConnect.getRestaurants()");
+		}
+		
+		htclient.getConnectionManager().shutdown();
+		Log.i("SP", result);
+		
+		return result;
+	}
 }
+

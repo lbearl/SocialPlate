@@ -3,9 +3,14 @@ package edu.msoe.SocialPlate.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import edu.msoe.SocialPlate.R;
 import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
+import edu.msoe.SocialPlate.http.ServerConnect;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -69,7 +74,7 @@ public class ResultScreen extends Activity{
         });
 	}
 
-	public Restaurant[] getTaggedLocations(){
+	public Restaurant[] getTaggedLocations() throws JSONException{
 			
 		DBAdapter dba = new DBAdapter(getApplicationContext());
 		
@@ -82,6 +87,20 @@ public class ResultScreen extends Activity{
 		ArrayList<String> nPrice = new ArrayList<String>();
 		ArrayList<String> nType = new ArrayList<String>();
 		ArrayList<String> nEthnicity = new ArrayList<String>();
+		ServerConnect sc = ServerConnect.getInstance();
+		String rests = sc.getRestaurants();
+		JSONArray jar = new JSONArray(rests);
+		Restaurant[] myrests = new Restaurant[jar.length()+5];
+		for(int i =0; i< jar.length(); i++){
+			myrests[i].setDescription(jar.getJSONObject(i).getString("description"));
+			myrests[i].setEthnicity(jar.getJSONObject(i).getString("ethnicity"));
+			myrests[i].setFoodType(jar.getJSONObject(i).getString("f_type"));
+			myrests[i].setLatitude(jar.getJSONObject(i).getInt("latitude"));
+			myrests[i].setLongitude(jar.getJSONObject(i).getInt("longitude"));
+			myrests[i].setName(jar.getJSONObject(i).getString("r_name"));
+			myrests[i].setPriceRange(jar.getJSONObject(i).getString("price_name"));
+			
+		}
 		
 		Restaurant[] restaurants = dba.queryRestaurants(rName, rPrice, rType, rEthnicity,
 				nName, nPrice, nType, nEthnicity,
@@ -90,7 +109,7 @@ public class ResultScreen extends Activity{
 		dba.closeDB();		
 						
 	//	restaurantArray = restaurants;
-		return restaurants;
+		return myrests;
 	}
 	
 	 

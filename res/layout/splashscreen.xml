@@ -5,8 +5,7 @@
   android:layout_height="fill_parent"
   android:background="#ffffff">
 
-  
-  
+  <!--   
   <ImageView
   	android:id="@+id/splash"
   	android:src="@drawable/splash"
@@ -14,6 +13,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
 	android:layout_centerInParent="true"
-	  	/>
+	  	/> -->
   	
  </RelativeLayout> 	

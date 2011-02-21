@@ -7,6 +7,7 @@ import edu.msoe.SocialPlate.activities.ResultScreen;
 import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 import edu.msoe.SocialPlate.helperobjects.UserChoices;
+import edu.msoe.SocialPlate.http.ServerConnect;
 import edu.msoe.SocialPlate.http.WebQuery;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,7 +55,7 @@ public class SocialPlate extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+
         MAP = (ImageButton) findViewById(R.id.mapbutton);
         MAP.setImageResource(MAP_ID);
         MAP.setAdjustViewBounds(true);
