@@ -8,17 +8,25 @@ import edu.msoe.SocialPlate.database.DBAdapter;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ResultScreen extends Activity{
 
 	private ListView lv;
+	private Restaurant[] restaurantArray;
 	/**
 	 * This class will contain the list view that displays the results
 	 * from the Google Places API Search Request
@@ -38,6 +46,9 @@ public class ResultScreen extends Activity{
         lv = (ListView)findViewById(R.id.mainlist);
         lv.setTextFilterEnabled(true);         
         lv.setAdapter(new ArrayAdapter<Parcelable>(this, R.layout.list_item, rest));
+        
+      //Registers the Listview to have a context menu
+        registerForContextMenu(lv);
         
         lv.setOnItemClickListener(new OnItemClickListener(){
 
@@ -75,7 +86,40 @@ public class ResultScreen extends Activity{
 				);
 		dba.closeDB();		
 						
+		restaurantArray = restaurants;
 		return restaurants;
 	}
 	
+	 
+	    /**
+	     * Called when the context menu is first called
+	     */
+	    public void onCreateContextMenu(ContextMenu menu, View v,
+	                                    ContextMenuInfo menuInfo) {
+	      super.onCreateContextMenu(menu, v, menuInfo);
+	      
+	      MenuInflater inflater = getMenuInflater();
+	      inflater.inflate(R.layout.contextmenu, menu);
+	    }
+	
+	    /**
+	     * Called when an item in the context menu is selected. 
+	     */
+	    public boolean onContextItemSelected(MenuItem item) {
+	    	//Switch statement determines which item on the context menu was selected
+	      switch (item.getItemId()) {
+	      case R.id.Map_Context_Menu:
+	    	  
+	    	  AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    	  Uri uri = Uri.parse("geo:"+restaurantArray[(int)info.id].getLatitude()+","+restaurantArray[(int)info.id].getLongitude()); 
+	    	  
+	    	  Log.d("SocialPlate", "Launching Google Maps with Uri: ("+uri+")"); 
+	    	  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+	    	  startActivity(intent);
+	        return true;
+	      default:
+	        return super.onContextItemSelected(item);
+	      }
+	    }
 }
