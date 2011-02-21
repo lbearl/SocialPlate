@@ -29,18 +29,18 @@ public class WebQuery {
 		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
 		try {			
 			if(UserChoices.getInstance().getName()!=null){
-				jquery.put("restaurant_name", UserChoices.getInstance().getName());
+				jquery.put("r_name", UserChoices.getInstance().getName());
 			}if(UserChoices.getInstance().getEthnicity()!=null){
 				jquery.put("ethnicity", UserChoices.getInstance().getEthnicity());
 			}if(UserChoices.getInstance().getCost()!=null){
-				jquery.put("cost", UserChoices.getInstance().getCost());
+				jquery.put("price_name", UserChoices.getInstance().getCost());
 			}if(UserChoices.getInstance().getMeal()!=null){
-				jquery.put("meal", UserChoices.getInstance().getCost());
+				jquery.put("f_type", UserChoices.getInstance().getCost());
 			}if(UserChoices.getInstance().getLocationSearch()!=DBAdapter.DISABLE_LOCATION_SEARCH &&
 				RetrieverOfLocations.getInstance(context).latitude != DBAdapter.DISABLE_LOCATION_SEARCH &&
 				RetrieverOfLocations.getInstance(context).longitude != DBAdapter.DISABLE_LOCATION_SEARCH){
 				
-				jquery.put("distance_search", UserChoices.getInstance().getLocationSearch());
+			//	jquery.put("distance_search", UserChoices.getInstance().getLocationSearch());
 				jquery.put("latitude", RetrieverOfLocations.getInstance(context).latitude);
 				jquery.put("longitude", RetrieverOfLocations.getInstance(context).longitude);
 			}				
@@ -49,9 +49,9 @@ public class WebQuery {
 			JSONObject j = null;
 			for(int i = 0; i < array.length(); i++){
 				j = array.getJSONObject(i);
-				restaurants.add(new Restaurant(-1, j.getString("restaurant_name"), j.getDouble("latitude"),
-						j.getDouble("longitude"), j.getString("description"), j.getString("cost"), j.getString("meal"),
-						j.getString("ethnicity")));
+				restaurants.add(new Restaurant(-1, j.getString("r_name"), j.getDouble("latitude"),
+						j.getDouble("longitude"), j.getString("description"), j.getString("price_name"),
+						j.getString("f_type"), j.getString("ethnicity")));
 			}			
 			
 		} catch (JSONException e) {

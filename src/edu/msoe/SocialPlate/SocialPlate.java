@@ -185,21 +185,29 @@ public class SocialPlate extends Activity implements OnClickListener {
     	}
     	else if(view == PLATE){
     		
-    		Restaurant[] restaurant = null;
-    		
+    		Restaurant[] restaurant = null;    		
     		
     		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);    		
     		int d = tm.getDataState();
     		
-    		if(d==tm.DATA_CONNECTED || d==tm.DATA_CONNECTING){
-    			restaurant = WebQuery.queryWeb(getApplicationContext());
-    		}else{
+//    		if(d==tm.DATA_CONNECTED || d==tm.DATA_CONNECTING){
+//    			restaurant = WebQuery.queryWeb(getApplicationContext());
+//    		}else{
     			DBAdapter dba = new DBAdapter(getApplicationContext());
         		restaurant = dba.queryRestaurant();
         		dba.closeDB();
-    		}
+   // 		}
     		
 
+        	double[] latitudes = new double[restaurant.length];
+        	double[] longitudes = new double[restaurant.length];
+        	
+        	for(int i = 0; i < restaurant.length; i++){
+        		latitudes[i] = restaurant[i].getLatitude();
+        		longitudes[i] = restaurant[i].getLongitude();
+        	}
+        		
+        		
     		
     		Toast.makeText(this, "Choosing your restaurant", Toast.LENGTH_SHORT).show();
     		
@@ -208,6 +216,14 @@ public class SocialPlate extends Activity implements OnClickListener {
     				getResources().getString(R.string.result_screen_fqn));
     		Bundle bundle = new Bundle();
     		bundle.putParcelableArray("Restaurants", restaurant);
+    		bundle.putDoubleArray("latitudes", latitudes);
+    		bundle.putDoubleArray("longitudes", longitudes);
+    		
+    		/**
+    		 * Fuck yes
+    		 */
+    		
+    		
     		intent.putExtras(bundle);
     		startActivity(intent);
     	}

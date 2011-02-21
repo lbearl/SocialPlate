@@ -10,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -22,6 +23,7 @@ import edu.msoe.SocialPlate.R;
 import edu.msoe.SocialPlate.helperobjects.Restaurant;
 
 import android.content.Context;
+import android.util.Log;
 
 public class ServerConnect {
 
@@ -69,10 +71,21 @@ public class ServerConnect {
 		
 		
 //		nvps.add(new BasicNameValuePair("cmd", command.getCommand()));
-		nvps.add(new BasicNameValuePair("data", j.toString()));
+//		nvps.add(new BasicNameValuePair("data", j.toString()));
+//		nvps.add(new BasicNameValuePair("description", j.getString("description")));
+//		nvps.add(new BasicNameValuePair("r_name", j.getString("r_name")));
+//		nvps.add(new BasicNameValuePair("f_type", j.getString("f_type")));
+//		nvps.add(new BasicNameValuePair("price_name", j.getString("price_name")));
+//		nvps.add(new BasicNameValuePair("f_type", j.getString("f_type")));
+//		nvps.add(new BasicNameValuePair("ethnicity", j.getString("ethnicity")));
+//		nvps.add(new BasicNameValuePair("latitude", j.getString("latitude")));
+//		nvps.add(new BasicNameValuePair("longitude", j.getString("longitude")));
+		
 
 		HttpPost httpPost = new HttpPost(context.getString(R.string.server_location));
-		httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+//		httpPost.addHeader(name, value)
+//		httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+//		httpPost.setEntity(new StringEntity(j.toString(), HTTP.UTF_8));
 
 		// Sends the http post
 		HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -92,6 +105,8 @@ public class ServerConnect {
 		}
 		reader.close();
 
+		
+		Log.i("ServerConnect Response Received", out.toString());
 		JSONTokener tokener = new JSONTokener(out.toString());
 		
 		JSONArray array = new JSONArray(tokener);

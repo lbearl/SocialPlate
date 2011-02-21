@@ -104,7 +104,7 @@ public class GeoTag extends Activity implements OnClickListener{
 
 	
 	/**
-	 * The event handler for button clicks.
+	 * The event handler for button clicks. yo. no. go ahead.  i just gotta track down my mistake.  ttyl
 	 * @param view
 	 */
 	public void onClick(View view){	

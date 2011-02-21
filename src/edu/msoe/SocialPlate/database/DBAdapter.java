@@ -272,7 +272,9 @@ public class DBAdapter {
 				masterRestaurantList.add(tempRestaurant);				
 			}				 
 		}	
-		cursor.close();
+		if(cursor!=null && !cursor.isClosed()){
+			cursor.close();
+		}	
 		return masterRestaurantList.toArray(new Restaurant[masterRestaurantList.size()]);
 	}
 	

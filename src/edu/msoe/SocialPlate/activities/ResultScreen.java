@@ -26,7 +26,8 @@ import android.widget.AdapterView.OnItemClickListener;
 public class ResultScreen extends Activity{
 
 	private ListView lv;
-	private Restaurant[] restaurantArray;
+	private double[] restaurantLat;
+	private double[] restaurantLon; 
 	/**
 	 * This class will contain the list view that displays the results
 	 * from the Google Places API Search Request
@@ -41,7 +42,9 @@ public class ResultScreen extends Activity{
 		
 		Bundle bundle = getIntent().getExtras();
 		
-		Parcelable[] rest = bundle.getParcelableArray("Restaurants");
+		Parcelable[] rest = bundle.getParcelableArray("Restaurants");		
+		restaurantLat = bundle.getDoubleArray("latitudes");
+		restaurantLon = bundle.getDoubleArray("longitudes");
 		
         lv = (ListView)findViewById(R.id.mainlist);
         lv.setTextFilterEnabled(true);         
@@ -86,7 +89,7 @@ public class ResultScreen extends Activity{
 				);
 		dba.closeDB();		
 						
-		restaurantArray = restaurants;
+	//	restaurantArray = restaurants;
 		return restaurants;
 	}
 	
@@ -108,15 +111,15 @@ public class ResultScreen extends Activity{
 	    public boolean onContextItemSelected(MenuItem item) {
 	    	//Switch statement determines which item on the context menu was selected
 	      switch (item.getItemId()) {
-	      case R.id.Map_Context_Menu:
+	      case R.id.Map_Context_Menu:    	  
 	    	  
 	    	  AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-	    	  Uri uri = Uri.parse("geo:"+restaurantArray[(int)info.id].getLatitude()+","+restaurantArray[(int)info.id].getLongitude()); 
-	    	  
-	    	  Log.d("SocialPlate", "Launching Google Maps with Uri: ("+uri+")"); 
+	    	  Uri uri = Uri.parse("geo:"+(restaurantLat[(int)info.id]/1E6)+","+(restaurantLon[(int)info.id])/1E6); 
+	    	  //debug statements aren't compiled!!!!!!!!!!
+	    	  Log.i("SocialPlate", "Launching Google Maps with Uri: ("+uri+")"); 
 	    	  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-
 	    	  startActivity(intent);
+	    	  
 	        return true;
 	      default:
 	        return super.onContextItemSelected(item);
